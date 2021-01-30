@@ -5,22 +5,14 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
 import com.example.apolo.views.MapsFragment
-import com.example.apolo.views.TesteFragment
-
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.example.apolo.views.ListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     //TODO usar injeção de dependencias
     private val maps = MapsFragment()
-    private val teste = TesteFragment()
+    private val teste = ListFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
