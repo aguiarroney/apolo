@@ -1,26 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    app:cardCornerRadius="3dp"
-    app:cardElevation="3dp"
+    android:layout_height="@dimen/card_height"
+    app:cardCornerRadius="@dimen/card_border_radius"
+    app:cardElevation="@dimen/card_elevation"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_eight">
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
-            android:text="Cliente"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="@dimen/font_size_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="@dimen/zero_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_subtitle"
+            app:layout_constraintEnd_toStartOf="@id/iv_last_visit_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+        <ImageView
+            android:id="@+id/iv_last_visit_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Icone da visita"
+            app:layout_constraintEnd_toStartOf="@id/tv_last_visit_text"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            app:srcCompat="@drawable/ic_baseline_settings_backup_restore_20" />
+
+        <TextView
+            android:id="@+id/tv_last_visit_text"
+            android:layout_width="@dimen/zero_width"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/padding_five"
+            android:paddingRight="@dimen/padding_five"
+            android:textSize="@dimen/font_size_detail"
+            app:layout_constraintEnd_toStartOf="@id/iv_tpv"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+        <ImageView
+            android:id="@+id/iv_tpv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Icone da visita"
+            app:layout_constraintEnd_toStartOf="@+id/tv_tvp_text"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            app:srcCompat="@drawable/ic_baseline_attach_money_20" />
+
+        <TextView
+            android:id="@+id/tv_tvp_text"
+            android:layout_width="@dimen/zero_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+        <ImageView
+            android:id="@+id/iv_next_visit_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_five"
+            android:contentDescription="Icone da visita"
+            app:layout_constraintEnd_toStartOf="@id/tv_next_visit_text"
+            app:layout_constraintTop_toBottomOf="@id/iv_last_visit_icon"
+            app:srcCompat="@drawable/ic_baseline_calendar_today_20"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_next_visit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_five"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginRight="@dimen/large_margin"
+            android:padding="@dimen/padding_five"
+            android:textSize="@dimen/font_size_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_last_visit_text" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
