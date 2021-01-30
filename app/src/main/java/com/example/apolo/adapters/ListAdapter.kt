@@ -9,9 +9,9 @@ import com.example.apolo.R
 import com.example.apolo.models.Client
 
 // TODO RECEBER A LISTA DE CLIENTES VIA CONSTRUTOR
-class ListAdapter: RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemName: TextView = itemView.findViewById(R.id.tv_name)
         var itemAddress: TextView = itemView.findViewById(R.id.tv_address)
         var itemNexVisit: TextView = itemView.findViewById(R.id.tv_next_visit_text)
@@ -20,10 +20,38 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.ViewHolder>() {
     }
 
     // LISTA APENAS PARA TESTE
-    val data = listOf<Client>(Client(1, "cliente", "Mercado Compre Bem", "Rua Gomes Carneiro, 56", 100.0, "varejo", "12/12/2020", "12/01/2021"),
-        Client(2, "lead", "Loja da Raquel", "Rua Gomes Carneiro, 56", 100.0, "varejo", "12/12/2020", "12/01/2021"),
-        Client(3, "cliente", "Cantina da praça", "Rua Gomes Carneiro, 56", 100.0, "varejo", "12/12/2020", "12/01/2021"),
-        )
+    val data = listOf<Client>(
+        Client(
+            1,
+            "cliente",
+            "Mercado Compre Bem",
+            "Rua Gomes Carneiro, 56",
+            100.0,
+            "varejo",
+            "12/12/2020",
+            "12/01/2021"
+        ),
+        Client(
+            2,
+            "lead",
+            "Loja da Raquel",
+            "Rua Gomes Carneiro, 56",
+            100.0,
+            "varejo",
+            "12/12/2020",
+            "12/01/2021"
+        ),
+        Client(
+            3,
+            "cliente",
+            "Cantina da praça",
+            "Rua Gomes Carneiro, 56",
+            100.0,
+            "varejo",
+            "12/12/2020",
+            "12/01/2021"
+        ),
+    )
 
     override fun getItemCount() = data.size
 
@@ -40,7 +68,6 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.ViewHolder>() {
         holder.itemLastVisit.text = data[position].lastVisit
         holder.itemTvp.text = data[position].tpv.toString()
     }
-
 
 
 }
