@@ -23,7 +23,7 @@ class ListFragment : Fragment() {
 
         adapter = ListAdapter()
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_list)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
         recyclerView.adapter = adapter
 
         return view
