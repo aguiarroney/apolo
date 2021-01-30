@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Apolo</string>
+    <string name="title_activity_main">Apolo</string>
 </resources>
