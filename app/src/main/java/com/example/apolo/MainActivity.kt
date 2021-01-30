@@ -2,6 +2,10 @@ package com.example.apolo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
+import androidx.fragment.app.Fragment
+import com.example.apolo.views.MapsFragment
+import com.example.apolo.views.TesteFragment
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -9,25 +13,39 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+class MainActivity : AppCompatActivity() {
 
-    private lateinit var mMap: GoogleMap
+    //TODO usar injeção de dependencias
+    private val maps = MapsFragment()
+    private val teste = TesteFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+
+        replaceFragment(maps)
+
+        val nbv: BottomNavigationView = findViewById(R.id.bnv_navigation_view)
+
+        //TODO criar ViewModel para controlar as transições
+        nbv.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.mi_lista -> replaceFragment(teste)
+                R.id.mi_mapa -> replaceFragment(maps)
+            }
+            true
+        }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    //TODO criar ViewModel para controlar as transições
+    private fun replaceFragment(fragment: Fragment){
+        if(fragment != null){
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fl_container, fragment)
+            transaction.commit()
+        }
     }
 }
