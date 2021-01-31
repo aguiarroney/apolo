@@ -12,8 +12,6 @@ data class Client(
     val segment: String, //tipo de seguimento do EC
     @Json(name = "last_visit") val lastVisit: String, // data da ultima visita
     @Json(name = "next_visit") val nextVisit: String, // data da prx visita "12/01/2021",
-
-//     usar lib Geocoder para converter endereço em latitude e longitude
-//    "lat": -22.90278,
-//    "lng": -43.2075,
+    val lat: Double,
+    val lng: Double
 )

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.apolo.R
+import com.example.apolo.repository.Repository
 import com.example.apolo.viewmodels.MapsFragmentViewModel
 
 import com.google.android.gms.maps.GoogleMap
@@ -27,7 +28,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         var view = inflater.inflate(R.layout.fragment_maps, container, false)
 
-        viewModel = ViewModelProvider(this).get(MapsFragmentViewModel::class.java)
+        val rep = Repository()
+        val mapsViewModelFactory = MapsFragmentViewModelFactory(rep)
+        viewModel =
+            ViewModelProvider(this, mapsViewModelFactory).get(MapsFragmentViewModel::class.java)
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
         mapsFragment?.getMapAsync(this)
@@ -38,7 +42,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val rio = LatLng(-22.90278, -43.2075)
-        viewModel.setPins(mMap, rio)
+        viewModel.setPins(mMap)
     }
 }
