@@ -11,7 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero_width"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bnv_navigation_view"/>
+        app:layout_constraintBottom_toTopOf="@id/bnv_navigation_view">
+
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@+id/bnv_navigation_view"
+            app:navGraph="@navigation/nav_graph" />
+
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_navigation_view"
@@ -26,13 +37,6 @@
         android:layout_gravity="bottom"
         app:menu="@menu/navigation_bar" />
 
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        ></fragment>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
