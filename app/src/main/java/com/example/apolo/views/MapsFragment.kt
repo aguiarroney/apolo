@@ -29,7 +29,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         viewModel = ViewModelProvider(this).get(MapsFragmentViewModel::class.java)
 
-        var mapsFragment = childFragmentManager?.findFragmentById(R.id.map) as? SupportMapFragment?
+        val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
         mapsFragment?.getMapAsync(this)
         return view
     }
