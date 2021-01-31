@@ -7,10 +7,7 @@ import com.example.apolo.models.Client
 import com.example.apolo.repository.Repository
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import kotlinx.coroutines.launch
 
 class MapsFragmentViewModel(private val repository: Repository) : ViewModel() {
@@ -33,9 +30,20 @@ class MapsFragmentViewModel(private val repository: Repository) : ViewModel() {
             for (i in clientsList.indices) {
                 val latLng = LatLng(clientsList[i].lat, clientsList[i].lng)
                 bounds.include(latLng)
-                mMap.addMarker(
-                    MarkerOptions().position(latLng).title("Marker in ${clientsList[i].name}")
-                )
+                if(clientsList[i].type == "lead"){
+                    mMap.addMarker(
+                        MarkerOptions().position(latLng).title("Marker in ${clientsList[i].name}").icon(
+                            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
+                        )
+                    )
+                }else{
+                    mMap.addMarker(
+                        MarkerOptions().position(latLng).title("Marker in ${clientsList[i].name}").icon(
+                            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
+                        )
+                    )
+                }
+
             }
             mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
         }
