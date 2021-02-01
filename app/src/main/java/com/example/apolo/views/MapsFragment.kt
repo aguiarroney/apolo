@@ -37,17 +37,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         viewModel.getClients()
 
-        viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
-
-            if(response.isSuccessful){
-                response.body()?.let { viewModel.setPins(mMap, it) }
-            }
-            else{
-               Log.i("ERRO", "${response.code()}")
-            }
-
-        })
-
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
         mapsFragment?.getMapAsync(this)
         return view
@@ -56,5 +45,15 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
+
+            if(response.isSuccessful){
+                response.body()?.let { viewModel.setPins(mMap, it) }
+            }
+            else{
+                Log.i("ERRO", "${response.code()}")
+            }
+        })
     }
 }
