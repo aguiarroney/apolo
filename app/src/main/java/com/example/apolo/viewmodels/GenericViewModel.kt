@@ -16,7 +16,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
 
     var clientsList: MutableLiveData<Response<List<Client>>> = MutableLiveData()
     var polo: MutableLiveData<Response<List<Polo>>> = MutableLiveData()
-    var marker: MutableLiveData<Marker> = MutableLiveData()
+    private var _marker: MutableLiveData<Marker> = MutableLiveData()
 
     fun getClients() {
         viewModelScope.launch {
@@ -70,7 +70,9 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         polygon.tag = "alpha"
     }
 
-    fun setDetails(mMarker: Marker) {
-        marker.value = mMarker
+    fun setMarker(mMarker: Marker) {
+        _marker.value = mMarker
     }
+
+    fun getMarker() =_marker.value
 }

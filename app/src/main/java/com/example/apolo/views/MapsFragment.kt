@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.apolo.R
@@ -24,7 +25,9 @@ import com.google.android.gms.maps.model.Marker
 class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var viewModel: GenericViewModel
+    private val repository = Repository()
+    private val viewModelFactory = GenericViewModelFactory(repository)
+    private val viewModel: GenericViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,10 +35,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     ): View? {
 
         var view = inflater.inflate(R.layout.fragment_maps, container, false)
-
-        val repository = Repository()
-        val viewModelFactory = GenericViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(GenericViewModel::class.java)
 
         viewModel.getPoloLimits()
         viewModel.getClients()
@@ -73,7 +72,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     override fun onMarkerClick(marker: Marker?): Boolean {
         if (marker != null) {
             marker.showInfoWindow()
-            viewModel.setDetails(marker)
+            viewModel.setMarker(marker)
 
             // ALTO ACOPLAMENTO
             val detail = DetailFragment()
