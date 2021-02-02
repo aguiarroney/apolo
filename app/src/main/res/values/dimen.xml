@@ -8,10 +8,13 @@
     <!--   paddings     -->
     <dimen name="padding_eight">8dp</dimen>
     <dimen name="padding_five">5dp</dimen>
+    <dimen name="padding_ten">5dp</dimen>
 
     <!--    margens -->
     <dimen name="large_margin">65dp</dimen>
     <dimen name="margin_five">5dp</dimen>
+    <dimen name="margin_twenty">20dp</dimen>
+    <dimen name="margin_twenty_five">25dp</dimen>
 
     <!--    0dp -->
     <dimen name="zero_width">0dp</dimen>

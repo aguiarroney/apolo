@@ -6,10 +6,10 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="25dp"
+        android:layout_height="@dimen/card_height"
+        android:layout_marginLeft="@dimen/margin_twenty"
+        android:layout_marginRight="@dimen/margin_twenty"
+        android:layout_marginBottom="@dimen/margin_twenty_five"
         app:cardCornerRadius="@dimen/card_border_radius"
         app:cardElevation="@dimen/card_elevation"
         app:cardUseCompatPadding="true"
@@ -20,13 +20,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:padding="@dimen/padding_ten">
 
             <TextView
                 android:id="@+id/tv_marker_name"
                 android:layout_width="@dimen/zero_width"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_size_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +34,7 @@
                 android:id="@+id/tv_marker_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="@dimen/font_size_subtitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_marker_name" />
 
@@ -42,7 +42,7 @@
                 android:id="@+id/tv_marker_segment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="@dimen/font_size_detail"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_marker_address" />
 
@@ -59,7 +59,7 @@
                 android:id="@+id/tv_marker_tvp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="@dimen/font_size_detail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_marker_address"
                 app:layout_constraintTop_toTopOf="parent"
