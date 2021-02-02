@@ -44,16 +44,14 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
                         BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
                     )
                 )
-                marker.tag = mList[i]
             } else {
                 marker = mMap.addMarker(
                     MarkerOptions().position(latLng).title("Cliente ${mList[i].name}").icon(
                         BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
                     )
                 )
-                marker.tag = mList[i]
             }
-
+            marker.tag = mList[i]
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
     }

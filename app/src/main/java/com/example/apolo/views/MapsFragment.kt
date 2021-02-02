@@ -43,10 +43,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
         mapsFragment?.getMapAsync(this)
 
-        val detail = DetailFragment()
-        val transaction = childFragmentManager.beginTransaction()
-        transaction.replace(R.id.fl_detail, detail).commit()
-
         return view
     }
 
@@ -76,7 +72,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
     override fun onMarkerClick(marker: Marker?): Boolean {
         if (marker != null) {
+            marker.showInfoWindow()
             viewModel.setDetails(marker)
+
+            val detail = DetailFragment()
+            val transaction = childFragmentManager.beginTransaction()
+            transaction.replace(R.id.fl_detail, detail).commit()
+
         }
         return true
     }
