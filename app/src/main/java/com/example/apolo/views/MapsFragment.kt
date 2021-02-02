@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.apolo.R
@@ -18,8 +19,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 
-class MapsFragment : Fragment(), OnMapReadyCallback {
+class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mMap: GoogleMap
     private lateinit var viewModel: GenericViewModel
@@ -40,31 +42,42 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
         mapsFragment?.getMapAsync(this)
+
+        val detail = DetailFragment()
+        val transaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.fl_detail, detail).commit()
+
         return view
     }
-
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
         viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
 
-            if(response.isSuccessful){
+            if (response.isSuccessful) {
                 response.body()?.let { viewModel.setPins(mMap, it) }
-            }
-            else{
+            } else {
                 Log.i("ERRO", "${response.code()}")
             }
         })
 
         viewModel.polo.observe(viewLifecycleOwner, Observer { response ->
 
-            if(response.isSuccessful){
+            if (response.isSuccessful) {
                 response.body()?.let { viewModel.drawLimits(mMap, it) }
-            }
-            else{
+            } else {
                 Log.i("ERRO", "${response.code()}")
             }
         })
+
+        mMap.setOnMarkerClickListener(this)
+    }
+
+    override fun onMarkerClick(marker: Marker?): Boolean {
+        if (marker != null) {
+            viewModel.setDetails(marker)
+        }
+        return true
     }
 }
