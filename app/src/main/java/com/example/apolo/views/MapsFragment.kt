@@ -35,6 +35,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         val viewModelFactory = GenericViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(GenericViewModel::class.java)
 
+        viewModel.getPoloLimits()
         viewModel.getClients()
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
@@ -50,6 +51,16 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
             if(response.isSuccessful){
                 response.body()?.let { viewModel.setPins(mMap, it) }
+            }
+            else{
+                Log.i("ERRO", "${response.code()}")
+            }
+        })
+
+        viewModel.polo.observe(viewLifecycleOwner, Observer { response ->
+
+            if(response.isSuccessful){
+                response.body()?.let { viewModel.drawLimits(mMap, it) }
             }
             else{
                 Log.i("ERRO", "${response.code()}")
