@@ -25,6 +25,8 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentDetailBinding.inflate(layoutInflater)
+
+        // ALTO ACOPLAMENTO / ESTE FRAGMENT NAO PRECISA DO REPOSITORY
         val repository = Repository()
         val viewModelFactory = GenericViewModelFactory(repository)
         viewModel =

@@ -75,6 +75,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             marker.showInfoWindow()
             viewModel.setDetails(marker)
 
+            // ALTO ACOPLAMENTO
             val detail = DetailFragment()
             val transaction = childFragmentManager.beginTransaction()
             transaction.replace(R.id.fl_detail, detail).commit()

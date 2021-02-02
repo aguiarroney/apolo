@@ -27,6 +27,7 @@ class ListFragment : Fragment() {
         val binding = FragmentListBinding.inflate(layoutInflater, container, false)
         binding.list.adapter = adapter
 
+        //ALTO ACOPLAMENTO
         val repository = Repository()
 
         val viewModelFactory = GenericViewModelFactory(repository)
@@ -37,7 +38,10 @@ class ListFragment : Fragment() {
         viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
             if(response.isSuccessful){
                 Log.i("SUCCESS", "${response.body()}")
-                response.body()?.let { adapter.setData(it) }
+                response.body()?.let {
+                    binding.tvQntEcs.text = "Quanditade de ECS: ${it.size}"
+                    adapter.setData(it)
+                }
             }
             else{
                 Log.i("FAIL", "${response.body()}")
