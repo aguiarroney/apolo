@@ -47,16 +47,16 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_marker_address" />
 
             <ImageView
-                android:id="@+id/iv_marker_tvp_icon"
+                android:id="@+id/iv_marker_tpv_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/tv_marker_tvp"
+                app:layout_constraintEnd_toStartOf="@id/tv_marker_tpv"
                 app:layout_constraintTop_toBottomOf="@id/tv_marker_address"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_attach_money_20" />
 
             <TextView
-                android:id="@+id/tv_marker_tvp"
+                android:id="@+id/tv_marker_tpv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_size_detail"

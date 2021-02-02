@@ -15,7 +15,7 @@ class ListAdapter() : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
         var itemAddress: TextView = itemView.findViewById(R.id.tv_address)
         var itemNexVisit: TextView = itemView.findViewById(R.id.tv_next_visit_text)
         var itemLastVisit: TextView = itemView.findViewById(R.id.tv_last_visit_text)
-        var itemTvp: TextView = itemView.findViewById(R.id.tv_tvp_text)
+        var itemtpv: TextView = itemView.findViewById(R.id.tv_tpv_text)
     }
 
     private  var myClientsList= emptyList<Client>()
@@ -33,7 +33,7 @@ class ListAdapter() : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
         holder.itemAddress.text = myClientsList[position].address
         holder.itemNexVisit.text = myClientsList[position].nextVisit
         holder.itemLastVisit.text = myClientsList[position].lastVisit
-        holder.itemTvp.text = myClientsList[position].tpv.toString()
+        holder.itemtpv.text = myClientsList[position].tpv.toString()
     }
 
     fun setData(newList: List<Client>){

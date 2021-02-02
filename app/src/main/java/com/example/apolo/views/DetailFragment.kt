@@ -35,7 +35,7 @@ class DetailFragment : Fragment() {
             binding.tvMarkerName.text = client.name
             binding.tvMarkerAddress.text = client.address
             binding.tvMarkerSegment.text = client.segment
-            binding.tvMarkerTvp.text = client.tpv.toString()
+            binding.tvMarkerTpv.text = client.tpv.toString()
         })
 
         return binding.root
