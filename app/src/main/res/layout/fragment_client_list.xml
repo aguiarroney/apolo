@@ -4,17 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".views.ListFragment">
-<!-- REMOVER O TEXTO NUMERO DO EC // PREENCHER VIA CÓDIGO -->
+    tools:context=".views.ClientListFragment">
     <TextView
         android:id="@+id/tv_qnt_ecs"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_width"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="@dimen/font_size_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/list"
         app:layout_constraintStart_toStartOf="parent"
-        android:padding="8dp"
+        android:padding="@dimen/padding_eight"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

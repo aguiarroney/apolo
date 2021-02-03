@@ -17,7 +17,17 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.example.apolo.views.ListFragment"
+        android:name="com.example.apolo.views.ClientListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_client_list" >
+        <action
+            android:id="@+id/action_listFragment_to_leadListFragment"
+            app:destination="@id/leadsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/leadsFragment"
+        android:name="com.example.apolo.views.LeadListFragment"
+        android:label="fragment_lead_list"
+        tools:layout="@layout/fragment_lead_list" />
 </navigation>

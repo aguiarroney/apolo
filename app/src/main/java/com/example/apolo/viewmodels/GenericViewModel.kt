@@ -1,9 +1,11 @@
 package com.example.apolo.viewmodels
 
 import android.graphics.Color
+import android.text.BoringLayout
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.apolo.models.Client
+import com.example.apolo.models.Lead
 import com.example.apolo.models.Polo
 import com.example.apolo.repository.Repository
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -16,6 +18,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
 
     var clientsList: MutableLiveData<Response<List<Client>>> = MutableLiveData()
     var polo: MutableLiveData<Response<List<Polo>>> = MutableLiveData()
+    var leadsList: MutableLiveData<Response<List<Lead>>> = MutableLiveData()
     private var _marker: MutableLiveData<Marker> = MutableLiveData()
 
     fun getClients() {
@@ -32,25 +35,42 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun setPins(mMap: GoogleMap, mList: List<Client>) {
+    fun getLeads(){
+        viewModelScope.launch {
+            val response = repository.getLeads()
+            leadsList.value = response
+        }
+    }
+
+    fun setClientPins(mMap: GoogleMap, mList: List<Client>) {
         val bounds = LatLngBounds.builder()
         var marker: Marker
         for (i in mList.indices) {
             val latLng = LatLng(mList[i].lat, mList[i].lng)
             bounds.include(latLng)
-            if (mList[i].type == "lead") {
-                marker = mMap.addMarker(
-                    MarkerOptions().position(latLng).title("Lead ${mList[i].name}").icon(
-                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
-                    )
+            marker = mMap.addMarker(
+                MarkerOptions().position(latLng).title("Cliente ${mList[i].name}").icon(
+                    BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
                 )
-            } else {
-                marker = mMap.addMarker(
-                    MarkerOptions().position(latLng).title("Cliente ${mList[i].name}").icon(
-                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
-                    )
+            )
+
+            marker.tag = mList[i]
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
+    }
+
+    fun setLeadPins(mMap: GoogleMap, mList: List<Lead>) {
+        val bounds = LatLngBounds.builder()
+        var marker: Marker
+        for (i in mList.indices) {
+            val latLng = LatLng(mList[i].lat, mList[i].lng)
+            bounds.include(latLng)
+            marker = mMap.addMarker(
+                MarkerOptions().position(latLng).title("Lead ${mList[i].name}").icon(
+                    BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
                 )
-            }
+            )
+
             marker.tag = mList[i]
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
@@ -74,5 +94,5 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         _marker.value = mMarker
     }
 
-    fun getMarker() =_marker.value
+    fun getMarker() = _marker.value
 }

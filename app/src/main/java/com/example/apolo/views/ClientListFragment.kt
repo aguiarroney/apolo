@@ -8,23 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.apolo.adapters.ListAdapter
-import com.example.apolo.databinding.FragmentListBinding
+import com.example.apolo.adapters.ClientsListAdapter
+import com.example.apolo.databinding.FragmentClientListBinding
 import com.example.apolo.repository.Repository
 import com.example.apolo.viewmodels.GenericViewModel
 import com.example.apolo.viewmodels.GenericViewModelFactory
 
-class ListFragment : Fragment() {
+class ClientListFragment : Fragment() {
 
     private lateinit var viewModel: GenericViewModel
-    private val adapter by lazy{ ListAdapter()}
+    private val adapter by lazy{ ClientsListAdapter()}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?
     {
-        val binding = FragmentListBinding.inflate(layoutInflater, container, false)
+        val binding = FragmentClientListBinding.inflate(layoutInflater, container, false)
         binding.list.adapter = adapter
 
         //ALTO ACOPLAMENTO
@@ -39,7 +39,7 @@ class ListFragment : Fragment() {
             if(response.isSuccessful){
                 Log.i("SUCCESS", "${response.body()}")
                 response.body()?.let {
-                    binding.tvQntEcs.text = "Quanditade de ECS: ${it.size}"
+                    binding.tvQntEcs.text = "Quanditade de Clientes: ${it.size}"
                     adapter.setData(it)
                 }
             }

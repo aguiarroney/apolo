@@ -21,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import kotlin.random.Random
 
 class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -38,11 +39,17 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         viewModel.getPoloLimits()
         viewModel.getClients()
+        viewModel.getLeads()
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
         mapsFragment?.getMapAsync(this)
-
+//        geraLatLng()
         return view
+    }
+
+    fun geraLatLng() {
+        val randomValues = List(50) { Random.nextInt(1000, 9999) }
+        Log.i("LATLANG", "$randomValues")
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -51,7 +58,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
 
             if (response.isSuccessful) {
-                response.body()?.let { viewModel.setPins(mMap, it) }
+                response.body()?.let { viewModel.setClientPins(mMap, it) }
             } else {
                 Log.i("ERRO", "${response.code()}")
             }
@@ -61,6 +68,14 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
             if (response.isSuccessful) {
                 response.body()?.let { viewModel.drawLimits(mMap, it) }
+            } else {
+                Log.i("ERRO", "${response.code()}")
+            }
+        })
+
+        viewModel.leadsList.observe(viewLifecycleOwner, Observer { response ->
+            if (response.isSuccessful) {
+                response.body()?.let { viewModel.setLeadPins(mMap, it) }
             } else {
                 Log.i("ERRO", "${response.code()}")
             }

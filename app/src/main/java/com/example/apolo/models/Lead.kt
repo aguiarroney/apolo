@@ -2,16 +2,15 @@ package com.example.apolo.models
 
 import com.squareup.moshi.Json
 
-data class Client(
+data class Lead(
 
     val id: Int,
     val name: String, //nome do EC
     val address: String, //"address": "Rua Goomes Carneiro",
     val tpv: Double, // valor em rais de transações por mes
-    val segment: String, //tipo de seguimento do EC
-    @Json(name = "last_visit") val lastVisit: String, // data da ultima visita
+    val status: String, //tipo de seguimento do EC
+    @Json(name = "qnt_visits") val visitQnt: String, // quantidade de visitas
     @Json(name = "next_visit") val nextVisit: String, // data da prx visita "12/01/2021",
     val lat: Double,
-    val lng: Double,
-    val satisfaction: String // nivel de satisfação do cliente
+    val lng: Double
 )

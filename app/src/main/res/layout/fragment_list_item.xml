@@ -31,6 +31,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
+        <TextView
+            android:id="@+id/tv_client_satsfaction"
+            android:layout_width="@dimen/zero_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
         <ImageView
             android:id="@+id/iv_last_visit_icon"
             android:layout_width="wrap_content"
@@ -75,9 +83,7 @@
             android:contentDescription="Icone da visita"
             app:layout_constraintEnd_toStartOf="@id/tv_next_visit_text"
             app:layout_constraintTop_toBottomOf="@id/iv_last_visit_icon"
-            app:srcCompat="@drawable/ic_baseline_calendar_today_20"
-
-            />
+            app:srcCompat="@drawable/ic_baseline_calendar_today_20" />
 
         <TextView
             android:id="@+id/tv_next_visit_text"

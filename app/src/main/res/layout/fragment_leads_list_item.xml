@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    app:cardCornerRadius="@dimen/card_border_radius"
+    app:cardElevation="@dimen/card_elevation"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_eight">
+
+        <TextView
+            android:id="@+id/tv_lead_name"
+            android:layout_width="@dimen/zero_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_title"
+            app:layout_constraintEnd_toStartOf="@id/iv_lead_next_visit_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_lead_address"
+            android:layout_width="@dimen/zero_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_subtitle"
+            app:layout_constraintEnd_toStartOf="@+id/tv_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_lead_name" />
+
+        <ImageView
+            android:id="@+id/iv_lead_next_visit_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_five"
+            app:layout_constraintEnd_toStartOf="@id/tv_lead_next_visit_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_calendar_today_20" />
+
+        <TextView
+            android:id="@+id/tv_lead_next_visit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_five"
+            android:textSize="@dimen/font_size_detail"
+            app:layout_constraintEnd_toStartOf="@id/iv_lead_tpv_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Proposta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_lead_address" />
+
+        <ImageView
+            android:id="@+id/iv_lead_tpv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_five"
+            app:layout_constraintEnd_toStartOf="@id/tv_lead_tpv_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_attach_money_20" />
+
+        <TextView
+            android:id="@+id/tv_lead_tpv_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/font_size_subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_lead_name"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_lead_visits_qnt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/font_size_subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_status"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
