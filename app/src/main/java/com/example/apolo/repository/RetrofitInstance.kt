@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitInstance {
 
-    private const val BASE_URL = "https://private-65965e-apolodata.apiary-mock.com/"
+    private const val BASE_URL = "https://601ad5b10ee87c001706aa45.mockapi.io/api/v1/"
 
     private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 

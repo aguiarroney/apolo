@@ -7,15 +7,23 @@ import retrofit2.Response
 
 class Repository{
 
-    suspend fun getClients(): Response<List<Client>> {
-        return RetrofitInstance.mockApi.getClients()
+    suspend fun fetchClients(): Response<List<Client>> {
+        return RetrofitInstance.mockApi.fetchClients()
     }
 
-    suspend fun getPoloLimits(): Response<List<Polo>>{
-        return RetrofitInstance.mockApi.getPoloLimits()
+    suspend fun fetchPoloLimits(): Response<List<Polo>>{
+        return RetrofitInstance.mockApi.fetchPoloLimits()
     }
 
-    suspend fun getLeads(): Response<List<Lead>>{
-        return RetrofitInstance.mockApi.getLeads()
+    suspend fun fetchLeads(): Response<List<Lead>>{
+        return RetrofitInstance.mockApi.fetchLeads()
+    }
+
+    suspend fun deleteLead(url: String) : Response<Lead>{
+        return RetrofitInstance.mockApi.deleteLead(url)
+    }
+
+    suspend fun deleteClient(url: String): Response<Client> {
+        return RetrofitInstance.mockApi.deleteClient(url)
     }
 }

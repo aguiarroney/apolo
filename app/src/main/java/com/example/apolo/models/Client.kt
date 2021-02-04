@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class Client(
 
-    val id: Int,
+    val id: String,
     val name: String, //nome do EC
     val address: String, //"address": "Rua Goomes Carneiro",
     val tpv: Double, // valor em rais de transações por mes

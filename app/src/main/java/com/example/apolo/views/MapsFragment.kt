@@ -7,11 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.apolo.R
+import com.example.apolo.models.Client
 import com.example.apolo.repository.Repository
 import com.example.apolo.viewmodels.GenericViewModel
 import com.example.apolo.viewmodels.GenericViewModelFactory
@@ -21,9 +20,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import kotlin.random.Random
 
-class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
+    GoogleMap.OnMapLongClickListener {
 
     private lateinit var mMap: GoogleMap
     private val repository = Repository()
@@ -37,19 +36,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         var view = inflater.inflate(R.layout.fragment_maps, container, false)
 
-        viewModel.getPoloLimits()
-        viewModel.getClients()
-        viewModel.getLeads()
+        viewModel.fetchClients()
+        viewModel.fetchLeads()
+        viewModel.fetchPoloLimits()
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
         mapsFragment?.getMapAsync(this)
-//        geraLatLng()
         return view
-    }
-
-    fun geraLatLng() {
-        val randomValues = List(50) { Random.nextInt(1000, 9999) }
-        Log.i("LATLANG", "$randomValues")
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -58,7 +51,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
 
             if (response.isSuccessful) {
-                response.body()?.let { viewModel.setClientPins(mMap, it) }
+                response.body()?.let {
+                    viewModel.setClientPins(mMap, it, true)
+                }
             } else {
                 Log.i("ERRO", "${response.code()}")
             }
@@ -75,13 +70,16 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         viewModel.leadsList.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
-                response.body()?.let { viewModel.setLeadPins(mMap, it) }
+                response.body()?.let {
+                    viewModel.setLeadPins(mMap, it, true)
+                }
             } else {
                 Log.i("ERRO", "${response.code()}")
             }
         })
 
         mMap.setOnMarkerClickListener(this)
+        mMap.setOnMapLongClickListener(this)
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {
@@ -96,5 +94,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         }
         return true
+    }
+
+    override fun onMapLongClick(latLng: LatLng?) {
+        //todo adicionar um novo marker
+
     }
 }

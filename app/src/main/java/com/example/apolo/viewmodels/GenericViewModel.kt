@@ -21,45 +21,73 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     var leadsList: MutableLiveData<Response<List<Lead>>> = MutableLiveData()
     private var _marker: MutableLiveData<Marker> = MutableLiveData()
 
-    fun getClients() {
+    fun fetchClients() {
+        Log.i("CHAMADA API", "CLIENT")
         viewModelScope.launch {
-            val response = repository.getClients()
+            val response = repository.fetchClients()
             clientsList.value = response
         }
     }
 
-    fun getPoloLimits() {
+    fun fetchPoloLimits() {
+        Log.i("CHAMADA API", "POLO")
         viewModelScope.launch {
-            val response = repository.getPoloLimits()
+            val response = repository.fetchPoloLimits()
             polo.value = response
         }
     }
 
-    fun getLeads(){
+    fun fetchLeads() {
+        Log.i("CHAMADA API", "LEAD")
         viewModelScope.launch {
-            val response = repository.getLeads()
+            val response = repository.fetchLeads()
             leadsList.value = response
         }
     }
 
-    fun setClientPins(mMap: GoogleMap, mList: List<Client>) {
+    fun deleteClient(url: String) {
+        viewModelScope.launch {
+            val response = repository.deleteClient(url)
+            if(response.isSuccessful){
+                Log.i("CLIENTE", "DELETOU COM SUCESSO")
+            }
+            else{
+                Log.i("CLIENTE", "falha: ${response.code()}")
+            }
+        }
+    }
+
+    fun deleteLead(url: String) {
+        viewModelScope.launch {
+            val response = repository.deleteLead(url)
+            if(response.isSuccessful){
+                Log.i("LEAD", "DELETOU COM SUCESSO")
+            }
+            else{
+                Log.i("LEAD", "falha: ${response.code()}")
+            }
+        }
+    }
+
+    fun setClientPins(mMap: GoogleMap, mList: List<Client>, moveCamera: Boolean) {
         val bounds = LatLngBounds.builder()
         var marker: Marker
         for (i in mList.indices) {
             val latLng = LatLng(mList[i].lat, mList[i].lng)
             bounds.include(latLng)
             marker = mMap.addMarker(
-                MarkerOptions().position(latLng).title("Cliente ${mList[i].name}").icon(
+                MarkerOptions().position(latLng).title("Cliente ${mList[i].id}").icon(
                     BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
                 )
             )
-
             marker.tag = mList[i]
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
+        if (!mList.isEmpty()) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
+        }
     }
 
-    fun setLeadPins(mMap: GoogleMap, mList: List<Lead>) {
+    fun setLeadPins(mMap: GoogleMap, mList: List<Lead>, moveCamera: Boolean) {
         val bounds = LatLngBounds.builder()
         var marker: Marker
         for (i in mList.indices) {
@@ -70,10 +98,11 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
                     BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
                 )
             )
-
             marker.tag = mList[i]
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
+        if (!mList.isEmpty()) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
+        }
     }
 
     fun drawLimits(mMap: GoogleMap, limits: List<Polo>) {
