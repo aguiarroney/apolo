@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.apolo.databinding.FragmentDetailBinding
@@ -23,8 +24,13 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailBinding.inflate(layoutInflater, container, false)
+        binding.btnConvert.isVisible = false
 
-        binding.tbnDelete.setOnClickListener {
+        binding.btnConvert.setOnClickListener {
+            
+        }
+
+        binding.btnDelete.setOnClickListener {
             viewModel.getMarker()?.let { marker ->
                 when (marker.tag) {
                     is Client -> {
@@ -58,6 +64,7 @@ class DetailFragment : Fragment() {
                     binding.tvMarkerAddress.text = obj.address
                     binding.tvMarkerSegment.text = obj.status
                     binding.tvMarkerTpv.text = obj.tpv.toString()
+                    binding.btnConvert.isVisible = true
                 }
 
             }
