@@ -69,6 +69,12 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+//    fun postClient(){
+//        viewModelScope.launch {
+//            val response = repository.postClient()
+//        }
+//    }
+
     fun setClientPins(mMap: GoogleMap, mList: List<Client>, moveCamera: Boolean) {
         val bounds = LatLngBounds.builder()
         var marker: Marker

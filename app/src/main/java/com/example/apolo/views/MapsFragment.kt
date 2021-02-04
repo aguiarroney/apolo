@@ -1,5 +1,7 @@
 package com.example.apolo.views
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -7,10 +9,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.apolo.R
 import com.example.apolo.models.Client
+import com.example.apolo.models.Lead
 import com.example.apolo.repository.Repository
 import com.example.apolo.viewmodels.GenericViewModel
 import com.example.apolo.viewmodels.GenericViewModelFactory
@@ -18,8 +22,10 @@ import com.example.apolo.viewmodels.GenericViewModelFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMapLongClickListener {
@@ -97,7 +103,55 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     }
 
     override fun onMapLongClick(latLng: LatLng?) {
-        //todo adicionar um novo marker
+        //TODO melhorar este fluxo / instaciação feita apenas para teste
 
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Adicionar cliente ou pin?")
+        builder.setPositiveButton("Cliente") { dialogInterface: DialogInterface, i: Int ->
+            //TODO melhorar este fluxo / instaciação feita apenas para teste
+            val client = Client(
+                "30",
+                "Novo Cliente",
+                "Rua Pedro Nolasco",
+                10.0,
+                "varejo",
+                "12/12",
+                "15/12",
+                latLng!!.latitude,
+                latLng!!.longitude,
+                "Aprovada"
+            )
+
+            val marker = mMap.addMarker(
+                MarkerOptions().position(LatLng(client.lat, client.lng))
+                    .title("Cliente ${client.id}").icon(
+                    BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
+                )
+            )
+            marker.tag = client
+        }
+        builder.setNegativeButton("Lead") { dialogInterface: DialogInterface, i: Int ->
+            val lead = Lead(
+                "30",
+                "Novo Cliente",
+                "Rua Pedro Nolasco",
+                10.0,
+                "varejo",
+                "12/12",
+                "15/12",
+                latLng!!.latitude,
+                latLng!!.longitude,
+            )
+
+            val marker = mMap.addMarker(
+                MarkerOptions().position(LatLng(lead.lat, lead.lng))
+                    .title("Lead ${lead.id}").icon(
+                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
+                    )
+            )
+            marker.tag = lead
+        }
+
+        builder.show()
     }
 }

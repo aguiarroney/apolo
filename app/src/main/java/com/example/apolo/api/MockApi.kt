@@ -26,10 +26,10 @@ interface MockApi{
     @DELETE
     suspend fun deleteClient(@Url url: String):Response<Client>
 
-//    @POST("clients")
-//    suspend fun postClient()
-//
-//    @POST("leads")
-//    suspend fun posTLead()
+    @POST("clients")
+    suspend fun postClient()
+
+    @POST("leads")
+    suspend fun posTLead()
 
 }

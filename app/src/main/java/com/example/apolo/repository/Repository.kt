@@ -26,4 +26,8 @@ class Repository{
     suspend fun deleteClient(url: String): Response<Client> {
         return RetrofitInstance.mockApi.deleteClient(url)
     }
+
+    suspend fun postClient() {
+        return RetrofitInstance.mockApi.postClient()
+    }
 }
