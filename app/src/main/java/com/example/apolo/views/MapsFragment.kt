@@ -102,6 +102,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         return true
     }
 
+    // a funcionalidade de adicionar um pin no mapa funcionará melhor com uma API verdadeira capaz de fazer posts e updates
+    // o código aqui implementado é apenas uma representação do efeito visual dessa ação no app
+
     override fun onMapLongClick(latLng: LatLng?) {
         //TODO melhorar este fluxo / instaciação feita apenas para teste
 

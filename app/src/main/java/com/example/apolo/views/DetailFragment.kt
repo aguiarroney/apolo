@@ -12,6 +12,7 @@ import com.example.apolo.databinding.FragmentDetailBinding
 import com.example.apolo.models.Client
 import com.example.apolo.models.Lead
 import com.example.apolo.viewmodels.GenericViewModel
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 
 class DetailFragment : Fragment() {
 
@@ -26,8 +27,16 @@ class DetailFragment : Fragment() {
         binding = FragmentDetailBinding.inflate(layoutInflater, container, false)
         binding.btnConvert.isVisible = false
 
+        // a funcionalidade de conversão funcionará melhor com uma API verdadeira capaz de fazer posts e updates
+        // o código aqui implementado é apenas uma representação do efeito visual dessa ação no app
         binding.btnConvert.setOnClickListener {
-            
+            viewModel.getMarker()?.let { marker ->
+                val lead: Lead = marker.tag as Lead
+                val client: Client = Client(lead.id, lead.name, lead.address, lead.tpv, "", "", lead.nextVisit, lead.lat, lead.lng, "Satisfeito")
+                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                marker.title = "Cliente ${client.name}"
+                viewModel.setMarker(marker)
+            }
         }
 
         binding.btnDelete.setOnClickListener {
