@@ -20,7 +20,7 @@ O valor `YOUR_KEY` deve ser substituído pela [chave de API do Google Maps](http
 
 ## Implementação
 
-Este app trabalha com requisições há uma API fake que contém dados fictícios sobre clientes e leads.
+Este app trabalha com requisições a uma API fake que contém dados fictícios sobre clientes e leads.
 Esta API foi criada no [mockApi](https://www.mockapi.io/), um serviço que permite realizar ações HTTP. Apesar da praticidade, o mockAPI não permite envio de dados personalizados, dessa forma, as ações do Apolo que precisariam de uma ação POST precisaram ser feitas de forma representativa via código.
 Ademais, ações de GET e DELETE foram implementadas com sucesso através do consumo da API.
 
