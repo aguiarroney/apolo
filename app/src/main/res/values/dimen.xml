@@ -15,6 +15,7 @@
     <dimen name="margin_five">5dp</dimen>
     <dimen name="margin_twenty">20dp</dimen>
     <dimen name="margin_twenty_five">25dp</dimen>
+    <dimen name="margin_seventy">70dp</dimen>
 
     <!--    0dp -->
     <dimen name="zero_width">0dp</dimen>

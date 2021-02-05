@@ -9,7 +9,7 @@
         android:layout_height="@dimen/card_height"
         android:layout_marginLeft="@dimen/margin_twenty"
         android:layout_marginRight="@dimen/margin_twenty"
-        android:layout_marginBottom="@dimen/margin_twenty_five"
+        android:layout_marginBottom="@dimen/margin_seventy"
         app:cardCornerRadius="@dimen/card_border_radius"
         app:cardElevation="@dimen/card_elevation"
         app:cardUseCompatPadding="true"
@@ -76,9 +76,10 @@
 
             <Button
                 android:id="@+id/btn_delete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="37dp"
-                android:text="Excluir"
+                android:text="@string/excluir"
                 android:textAllCaps="false"
                 android:textSize="@dimen/font_size_detail"
                 app:layout_constraintBottom_toTopOf="@id/btn_convert"
@@ -86,9 +87,10 @@
 
             <Button
                 android:id="@+id/btn_convert"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="37dp"
-                android:text="Converter"
+                android:text="@string/converter"
                 android:textAllCaps="false"
                 android:textSize="@dimen/font_size_detail"
                 app:layout_constraintBottom_toBottomOf="parent"
