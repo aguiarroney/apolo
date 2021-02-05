@@ -33,9 +33,7 @@ class DetailFragment : Fragment() {
             viewModel.getMarker()?.let { marker ->
                 val lead: Lead = marker.tag as Lead
                 val client: Client = Client(lead.id, lead.name, lead.address, lead.tpv, "", "", lead.nextVisit, lead.lat, lead.lng, "Satisfeito")
-                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                marker.title = "Cliente ${client.name}"
-                viewModel.setMarker(marker)
+                viewModel.converPin(client)
             }
         }
 

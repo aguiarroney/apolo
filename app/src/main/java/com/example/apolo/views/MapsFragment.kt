@@ -91,6 +91,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         mMap.setOnMarkerClickListener(this)
         mMap.setOnMapLongClickListener(this)
+        viewModel.setMap(mMap)
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {

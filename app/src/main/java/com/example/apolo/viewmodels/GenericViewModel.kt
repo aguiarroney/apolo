@@ -20,6 +20,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     var polo: MutableLiveData<Response<List<Polo>>> = MutableLiveData()
     var leadsList: MutableLiveData<Response<List<Lead>>> = MutableLiveData()
     private var _marker: MutableLiveData<Marker> = MutableLiveData()
+    private var _map: MutableLiveData<GoogleMap> = MutableLiveData()
 
     fun fetchClients() {
         Log.i("CHAMADA API", "CLIENT")
@@ -84,7 +85,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         for (i in mList.indices) {
             val latLng = LatLng(mList[i].lat, mList[i].lng)
             bounds.include(latLng)
-            marker = mMap.addMarker(
+            marker = _map.value!!.addMarker(
                 MarkerOptions().position(latLng).title("Cliente ${mList[i].id}").icon(
                     BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
                 )
@@ -103,7 +104,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         for (i in mList.indices) {
             val latLng = LatLng(mList[i].lat, mList[i].lng)
             bounds.include(latLng)
-            marker = mMap.addMarker(
+            marker = _map.value!!.addMarker(
                 MarkerOptions().position(latLng).title("Lead ${mList[i].name}").icon(
                     BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
                 )
@@ -126,7 +127,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
 
         val polygonOptions: PolygonOptions =
             PolygonOptions().addAll(latLngList).fillColor(0x1000FF00).strokeWidth(5f)
-        val polygon = mMap.addPolygon(polygonOptions)
+        val polygon = _map.value!!.addPolygon(polygonOptions)
         polygon.tag = "alpha"
     }
 
@@ -137,4 +138,19 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun getMarker() = _marker.value
+
+    fun converPin(client: Client){
+        _marker.value!!.remove()
+        val marker = _map.value!!.addMarker(
+            MarkerOptions().position(LatLng(client.lat, client.lng)).title("Cliente ${client.name}").icon(
+                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
+            )
+        )
+        marker.tag = client
+        setMarker(marker)
+    }
+
+    fun setMap(map: GoogleMap){
+        _map.value = map
+    }
 }
