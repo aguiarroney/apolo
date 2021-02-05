@@ -48,6 +48,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
         mapsFragment?.getMapAsync(this)
+
+        val info = InfoFragment()
+        val transaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.fl_detail, info).commit()
+
         return view
     }
 
