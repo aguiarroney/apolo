@@ -63,7 +63,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
             if (response.isSuccessful) {
                 response.body()?.let {
-                    viewModel.setClientPins(mMap, it, true)
+                    viewModel.setClientPins( it)
                 }
             } else {
                 Log.i("ERRO", "${response.code()}")
@@ -82,7 +82,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         viewModel.leadsList.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
                 response.body()?.let {
-                    viewModel.setLeadPins(mMap, it, true)
+                    viewModel.setLeadPins(it)
                 }
             } else {
                 Log.i("ERRO", "${response.code()}")

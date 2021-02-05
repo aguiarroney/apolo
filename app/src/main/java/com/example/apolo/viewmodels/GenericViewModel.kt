@@ -79,7 +79,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
 //    }
 
     //função responsavel por criar os pins de clientes no mapa
-    fun setClientPins(mMap: GoogleMap, mList: List<Client>, moveCamera: Boolean) {
+    fun setClientPins(mList: List<Client>) {
         val bounds = LatLngBounds.builder()
         var marker: Marker
         for (i in mList.indices) {
@@ -93,12 +93,12 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
             marker.tag = mList[i]
         }
         if (!mList.isEmpty()) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
+            _map.value!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
         }
     }
 
     // função responsavel por criar os pins de leads no mapa
-    fun setLeadPins(mMap: GoogleMap, mList: List<Lead>, moveCamera: Boolean) {
+    fun setLeadPins(mList: List<Lead>) {
         val bounds = LatLngBounds.builder()
         var marker: Marker
         for (i in mList.indices) {
@@ -112,7 +112,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
             marker.tag = mList[i]
         }
         if (!mList.isEmpty()) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
+            _map.value!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
         }
     }
 
