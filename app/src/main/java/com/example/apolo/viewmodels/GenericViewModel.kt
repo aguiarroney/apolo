@@ -45,36 +45,39 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    // função utilizada para deletar um pin do mapa e atualizar a clientes de leads através de uma chamada a API
     fun deleteClient(url: String) {
         viewModelScope.launch {
             val response = repository.deleteClient(url)
-            if(response.isSuccessful){
+            if (response.isSuccessful) {
                 Log.i("CLIENTE", "DELETOU COM SUCESSO")
-            }
-            else{
+            } else {
                 Log.i("CLIENTE", "falha: ${response.code()}")
             }
         }
     }
 
+    // função utilizada para deletar um pin do mapa e atualizar a lista de leads através de uma chamada a API
     fun deleteLead(url: String) {
         viewModelScope.launch {
             val response = repository.deleteLead(url)
-            if(response.isSuccessful){
+            if (response.isSuccessful) {
                 Log.i("LEAD", "DELETOU COM SUCESSO")
-            }
-            else{
+            } else {
                 Log.i("LEAD", "falha: ${response.code()}")
             }
         }
     }
 
+//     esta função foi criada inicialmente para ser utilizada nomomento da criação de um novo pin
+//    porem o post na API utilizada gera valores de latitude e longitude aleatórios, causando um comportamento indevido na aplicação
 //    fun postClient(){
 //        viewModelScope.launch {
 //            val response = repository.postClient()
 //        }
 //    }
 
+    //função responsavel por criar os pins de clientes no mapa
     fun setClientPins(mMap: GoogleMap, mList: List<Client>, moveCamera: Boolean) {
         val bounds = LatLngBounds.builder()
         var marker: Marker
@@ -93,6 +96,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    // função responsavel por criar os pins de leads no mapa
     fun setLeadPins(mMap: GoogleMap, mList: List<Lead>, moveCamera: Boolean) {
         val bounds = LatLngBounds.builder()
         var marker: Marker
@@ -111,6 +115,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    // função responsavel por desenhar os limites do polo no mapa
     fun drawLimits(mMap: GoogleMap, limits: List<Polo>) {
 
         val latLngList = mutableListOf<LatLng>()
@@ -124,6 +129,8 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         val polygon = mMap.addPolygon(polygonOptions)
         polygon.tag = "alpha"
     }
+
+    //funções utilizadas pelo Fragment filho do MapsFragment responsavel por mostrar os detalhes dos pins
 
     fun setMarker(mMarker: Marker) {
         _marker.value = mMarker
