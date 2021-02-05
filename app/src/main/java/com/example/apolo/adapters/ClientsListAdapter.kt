@@ -1,12 +1,16 @@
 package com.example.apolo.adapters
 
+import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apolo.R
 import com.example.apolo.models.Client
+import java.time.LocalDate
 
 class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>() {
 
@@ -29,11 +33,12 @@ class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ClientsListAdapter.ViewHolder, position: Int) {
         holder.itemName.text = myClientsList[position].name
         holder.itemAddress.text = myClientsList[position].address
         holder.itemNexVisit.text = myClientsList[position].nextVisit
-        holder.itemLastVisit.text = myClientsList[position].lastVisit
+        holder.itemLastVisit.text = "há " + setLastVisit(myClientsList[position].lastVisit)
         holder.itemtpv.text = myClientsList[position].tpv.toString()
         holder.itemSatsfaction.text = myClientsList[position].satisfaction
     }
@@ -41,6 +46,24 @@ class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>
     fun setData(newList: List<Client>){
         myClientsList = newList
         notifyDataSetChanged()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun setLastVisit(nextVisit: String) : String{
+        val now = LocalDate.now()
+        val today = now.dayOfMonth
+        val lastString =  nextVisit.substring(0, 2)
+        val last = lastString.toInt()
+
+        var days=0
+
+        if(last > today)
+            days = (30 - last) + today
+        else
+            days = today - last
+
+        Log.i("DATETIME", "${now}")
+        return days.toString()
     }
 
 }

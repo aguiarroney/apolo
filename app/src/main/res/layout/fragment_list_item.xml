@@ -90,8 +90,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_five"
-            android:layout_marginEnd="@dimen/large_margin"
-            android:layout_marginRight="@dimen/large_margin"
+
             android:padding="@dimen/padding_five"
             android:textSize="@dimen/font_size_detail"
             app:layout_constraintEnd_toEndOf="parent"
