@@ -35,7 +35,6 @@ class ClientListFragment : Fragment() {
                 Log.i("SUCCESS", "${response.body()}")
                 response.body()?.let {
                     binding.tvQntEcs.text = "Quanditade de Clientes: ${it.size}"
-//                    viewModel.setAuxClientList(it)
                     adapter.setData(it)
                 }
             }

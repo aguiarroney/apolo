@@ -18,7 +18,7 @@ class ClientsListAdapterTest{
 
         val result = adapter.setLastVisit(dateString)
 
-        assertEquals(4, result)
+        assertEquals(5, result)
     }
 
     //testando diferença de dias desde a ultima visita quando a data é em mes anterior
@@ -31,7 +31,7 @@ class ClientsListAdapterTest{
 
         val result = adapter.setLastVisit(dateString)
 
-        assertEquals(5, result)
+        assertEquals(6, result)
     }
 
 }

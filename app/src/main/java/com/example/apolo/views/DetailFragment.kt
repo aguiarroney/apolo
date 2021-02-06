@@ -32,7 +32,7 @@ class DetailFragment : Fragment() {
         binding.btnConvert.setOnClickListener {
             viewModel.getMarker()?.let { marker ->
                 val lead: Lead = marker.tag as Lead
-                val client: Client = Client(lead.id, lead.name, lead.address, lead.tpv, "", "", lead.nextVisit, lead.lat, lead.lng, "Satisfeito")
+                val client = Client(lead.id, lead.name, lead.address, lead.tpv, "", "", lead.nextVisit, lead.lat, lead.lng, "Satisfeito")
                 viewModel.converPin(client)
             }
         }

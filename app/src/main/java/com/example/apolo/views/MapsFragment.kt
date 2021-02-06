@@ -13,6 +13,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.apolo.R
+import com.example.apolo.databinding.FragmentMapsBinding
 import com.example.apolo.models.Client
 import com.example.apolo.models.Lead
 import com.example.apolo.repository.Repository
@@ -34,14 +35,14 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     private val repository = Repository()
     private val viewModelFactory = GenericViewModelFactory(repository)
     private val viewModel: GenericViewModel by activityViewModels { viewModelFactory }
+    private lateinit var binding: FragmentMapsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        var view = inflater.inflate(R.layout.fragment_maps, container, false)
-
+        binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
         viewModel.fetchClients()
         viewModel.fetchLeads()
         viewModel.fetchPoloLimits()
@@ -49,15 +50,44 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment?
         mapsFragment?.getMapAsync(this)
 
-        val info = InfoFragment()
-        val transaction = childFragmentManager.beginTransaction()
-        transaction.replace(R.id.fl_detail, info).commit()
-
-        return view
+        return binding.root
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        //flitra os pins por TPV
+        binding.btnClusterMax.setOnClickListener {
+            val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
+            //TODO implementar o filtro
+            var marker: Marker
+            for(i in markerList!!.indices){
+                marker = markerList.get(i)
+                marker.isVisible = false
+            }
+        }
+
+        //flitra os pins por TPV
+        binding.btnClusterMin.setOnClickListener {
+            val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
+            //TODO implementar o filtro
+            var marker: Marker
+            for(i in markerList!!.indices){
+                marker = markerList.get(i)
+                marker.isVisible = false
+            }
+        }
+
+        // Limpa todos os filtros de cluster
+        binding.btnClearFilter.setOnClickListener {
+            val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
+
+            var marker: Marker
+            for(i in markerList!!.indices){
+                marker = markerList.get(i)
+                marker.isVisible = true
+            }
+        }
 
         viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
 
@@ -116,7 +146,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Adicionar cliente ou pin?")
-        builder.setPositiveButton("Cliente") { dialogInterface: DialogInterface, i: Int ->
+        builder.setPositiveButton("Cliente") { _: DialogInterface, _: Int ->
             //TODO melhorar este fluxo / instaciação feita apenas para teste
             val client = Client(
                 "30",
@@ -127,7 +157,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                 "12/12",
                 "15/12",
                 latLng!!.latitude,
-                latLng!!.longitude,
+                latLng.longitude,
                 "Aprovada"
             )
 
@@ -138,8 +168,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                 )
             )
             marker.tag = client
+            viewModel.addMarkerToList(marker)
         }
-        builder.setNegativeButton("Lead") { dialogInterface: DialogInterface, i: Int ->
+        builder.setNegativeButton("Lead") { _: DialogInterface, _: Int ->
             val lead = Lead(
                 "30",
                 "Novo Cliente",
@@ -149,7 +180,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                 "12/12",
                 "15/12",
                 latLng!!.latitude,
-                latLng!!.longitude,
+                latLng.longitude,
             )
 
             val marker = mMap.addMarker(
@@ -159,6 +190,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                     )
             )
             marker.tag = lead
+            viewModel.addMarkerToList(marker)
         }
 
         builder.show()

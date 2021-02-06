@@ -21,6 +21,17 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     var leadsList: MutableLiveData<Response<List<Lead>>> = MutableLiveData()
     private var _marker: MutableLiveData<Marker> = MutableLiveData()
     private var _map: MutableLiveData<GoogleMap> = MutableLiveData()
+    private var _clientMarkerList: MutableLiveData<ArrayList<Marker>> = MutableLiveData()
+
+    fun addMarkerToList(marker: Marker){
+
+        if(_clientMarkerList.value == null)
+            _clientMarkerList.value = ArrayList()
+
+        _clientMarkerList.value!!.add(marker)
+    }
+
+    fun getMarkerList() = _clientMarkerList.value
 
     fun fetchClients() {
         Log.i("CHAMADA API", "CLIENT")
@@ -91,6 +102,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
                 )
             )
             marker.tag = mList[i]
+            addMarkerToList(marker)
         }
         if (!mList.isEmpty()) {
             _map.value!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
@@ -110,6 +122,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
                 )
             )
             marker.tag = mList[i]
+            addMarkerToList(marker)
         }
         if (!mList.isEmpty()) {
             _map.value!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
@@ -148,6 +161,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         )
         marker.tag = client
         setMarker(marker)
+        addMarkerToList(marker)
     }
 
     fun setMap(map: GoogleMap){
