@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.apolo.R
@@ -27,6 +26,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlin.collections.ArrayList
 
 class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMapLongClickListener {
@@ -59,22 +59,52 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         //flitra os pins por TPV
         binding.btnClusterMax.setOnClickListener {
             val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
-            //TODO implementar o filtro
             var marker: Marker
-            for(i in markerList!!.indices){
+            for (i in markerList!!.indices) {
+                Log.i("TPV For", "${i}")
                 marker = markerList.get(i)
-                marker.isVisible = false
+                when (marker.tag) {
+                    is Client -> {
+                        val obj: Client = marker.tag as Client
+                        Log.i("TPV Client", "${obj.tpv}")
+                        if (obj.tpv < 20000.0) {
+                            marker.isVisible = false
+                        }
+                    }
+                    else -> {
+                        val obj: Lead = marker.tag as Lead
+                        Log.i("TPV Lead", "${obj.tpv}")
+                        if (obj.tpv < 20000.0) {
+                            marker.isVisible = false
+                        }
+                    }
+                }
             }
         }
 
         //flitra os pins por TPV
         binding.btnClusterMin.setOnClickListener {
             val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
-            //TODO implementar o filtro
             var marker: Marker
-            for(i in markerList!!.indices){
+            for (i in markerList!!.indices) {
+                Log.i("TPV For", "${i}")
                 marker = markerList.get(i)
-                marker.isVisible = false
+                when (marker.tag) {
+                    is Client -> {
+                        val obj: Client = marker.tag as Client
+                        Log.i("TPV Client", "${obj.tpv}")
+                        if (obj.tpv < 10000.0) {
+                            marker.isVisible = false
+                        }
+                    }
+                    else -> {
+                        val obj: Lead = marker.tag as Lead
+                        Log.i("TPV Lead", "${obj.tpv}")
+                        if (obj.tpv < 10000.0) {
+                            marker.isVisible = false
+                        }
+                    }
+                }
             }
         }
 
@@ -83,7 +113,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
 
             var marker: Marker
-            for(i in markerList!!.indices){
+            for (i in markerList!!.indices) {
                 marker = markerList.get(i)
                 marker.isVisible = true
             }
@@ -93,7 +123,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
             if (response.isSuccessful) {
                 response.body()?.let {
-                    viewModel.setClientPins( it)
+                    viewModel.setClientPins(it)
                 }
             } else {
                 Log.i("ERRO", "${response.code()}")
@@ -164,8 +194,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             val marker = mMap.addMarker(
                 MarkerOptions().position(LatLng(client.lat, client.lng))
                     .title("Cliente ${client.id}").icon(
-                    BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
-                )
+                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
+                    )
             )
             marker.tag = client
             viewModel.addMarkerToList(marker)
