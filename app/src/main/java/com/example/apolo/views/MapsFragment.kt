@@ -67,14 +67,39 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                     is Client -> {
                         val obj: Client = marker.tag as Client
                         Log.i("TPV Client", "${obj.tpv}")
-                        if (obj.tpv < 20000.0) {
+                        if (obj.tpv >= 20000.0) {
                             marker.isVisible = false
                         }
                     }
                     else -> {
                         val obj: Lead = marker.tag as Lead
                         Log.i("TPV Lead", "${obj.tpv}")
-                        if (obj.tpv < 20000.0) {
+                        if (obj.tpv >= 20000.0) {
+                            marker.isVisible = false
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.btnClusterBetween.setOnClickListener {
+            val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
+            var marker: Marker
+            for (i in markerList!!.indices) {
+                Log.i("TPV For", "${i}")
+                marker = markerList.get(i)
+                when (marker.tag) {
+                    is Client -> {
+                        val obj: Client = marker.tag as Client
+                        Log.i("TPV Client", "${obj.tpv}")
+                        if (obj.tpv < 20000.0 && obj.tpv > 10000.0) {
+                            marker.isVisible = false
+                        }
+                    }
+                    else -> {
+                        val obj: Lead = marker.tag as Lead
+                        Log.i("TPV Lead", "${obj.tpv}")
+                        if (obj.tpv < 20000.0 && obj.tpv > 10000.0) {
                             marker.isVisible = false
                         }
                     }
@@ -93,14 +118,14 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                     is Client -> {
                         val obj: Client = marker.tag as Client
                         Log.i("TPV Client", "${obj.tpv}")
-                        if (obj.tpv < 10000.0) {
+                        if (obj.tpv <= 10000.0) {
                             marker.isVisible = false
                         }
                     }
                     else -> {
                         val obj: Lead = marker.tag as Lead
                         Log.i("TPV Lead", "${obj.tpv}")
-                        if (obj.tpv < 10000.0) {
+                        if (obj.tpv <= 10000.0) {
                             marker.isVisible = false
                         }
                     }
