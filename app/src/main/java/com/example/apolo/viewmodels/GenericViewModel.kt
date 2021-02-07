@@ -1,7 +1,5 @@
 package com.example.apolo.viewmodels
 
-import android.graphics.Color
-import android.text.BoringLayout
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.apolo.models.Client
@@ -21,17 +19,17 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     var leadsList: MutableLiveData<Response<List<Lead>>> = MutableLiveData()
     private var _marker: MutableLiveData<Marker> = MutableLiveData()
     private var _map: MutableLiveData<GoogleMap> = MutableLiveData()
-    private var _clientMarkerList: MutableLiveData<ArrayList<Marker>> = MutableLiveData()
+    private var _markerList: MutableLiveData<ArrayList<Marker>> = MutableLiveData()
 
     fun addMarkerToList(marker: Marker){
 
-        if(_clientMarkerList.value == null)
-            _clientMarkerList.value = ArrayList()
+        if(_markerList.value == null)
+            _markerList.value = ArrayList()
 
-        _clientMarkerList.value!!.add(marker)
+        _markerList.value!!.add(marker)
     }
 
-    fun getMarkerList() = _clientMarkerList.value
+    fun getMarkerList() = _markerList.value
 
     fun fetchClients() {
         Log.i("CHAMADA API", "CLIENT")
