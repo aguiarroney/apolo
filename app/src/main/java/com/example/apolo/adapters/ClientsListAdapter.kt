@@ -50,8 +50,10 @@ class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>
     }
 
     fun setData(newList: List<Client>) {
-        this._myClientsList.addAll(newList)
-        this._myClientsListFiltered.addAll(newList)
+        _myClientsListFiltered.clear()
+        _myClientsList.clear()
+        _myClientsList.addAll(newList as ArrayList<Client>)
+        _myClientsListFiltered.addAll(newList as ArrayList<Client>)
         notifyDataSetChanged()
     }
 
@@ -89,16 +91,13 @@ class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>
                 val localList = ArrayList<Client>()
                 if (charSequence == null || charSequence.isEmpty()) {
                     filterResults.values = _myClientsListFiltered
-                    filterResults.count = _myClientsListFiltered.size
                 } else {
                     var searchString = charSequence.toString().toLowerCase()
                     for (item in _myClientsListFiltered) {
-                        if (item.name.toLowerCase().contains(searchString)) {
-                            Log.i("PESQUISA", "${charSequence}")
+                        if (item.name.toLowerCase().contains(searchString) || item.address.toLowerCase().contains(searchString)) {
                             localList.add(item)
                         }
                     }
-                    filterResults.count = localList.size
                     filterResults.values = localList
                 }
 
