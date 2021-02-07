@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +14,7 @@ import com.example.apolo.R
 import com.example.apolo.models.Client
 import java.time.LocalDate
 
-class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>() {
+class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>(), Filterable {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemName: TextView = itemView.findViewById(R.id.tv_name)
@@ -23,9 +25,9 @@ class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>
         var itemSatsfaction: TextView = itemView.findViewById(R.id.tv_client_satsfaction)
     }
 
-    private var myClientsList = emptyList<Client>()
-
-    override fun getItemCount() = myClientsList.size
+    private var _myClientsList = ArrayList<Client>()
+    private var _myClientsListFiltered = ArrayList<Client>()
+    override fun getItemCount() = _myClientsList.size
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -38,16 +40,18 @@ class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ClientsListAdapter.ViewHolder, position: Int) {
-        holder.itemName.text = myClientsList[position].name
-        holder.itemAddress.text = myClientsList[position].address
-        holder.itemNexVisit.text = myClientsList[position].nextVisit
-        holder.itemLastVisit.text = "há " + setLastVisit(myClientsList[position].lastVisit).toString()
-        holder.itemtpv.text = myClientsList[position].tpv.toString()
-        holder.itemSatsfaction.text = myClientsList[position].satisfaction
+        holder.itemName.text = _myClientsList[position].name
+        holder.itemAddress.text = _myClientsList[position].address
+        holder.itemNexVisit.text = _myClientsList[position].nextVisit
+        holder.itemLastVisit.text =
+            "há " + setLastVisit(_myClientsList[position].lastVisit).toString()
+        holder.itemtpv.text = _myClientsList[position].tpv.toString()
+        holder.itemSatsfaction.text = _myClientsList[position].satisfaction
     }
 
     fun setData(newList: List<Client>) {
-        myClientsList = newList
+        this._myClientsList.addAll(newList)
+        this._myClientsListFiltered.addAll(newList)
         notifyDataSetChanged()
     }
 
@@ -66,17 +70,51 @@ class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>
         val lastDay = nextVisit.substring(0, 2).toInt()
         var days = 0
 
-        if(lastMonth == monthNow){
+        if (lastMonth == monthNow) {
             days = dayNow - lastDay
-        }
-        else if(lastMonth < monthNow){
+        } else if (lastMonth < monthNow) {
             if (lastDay > dayNow)
                 days = (getDaysInMonth(lastMonth) - lastDay) + dayNow
             else
                 days = dayNow - lastDay
         }
 
-        return (days )
+        return (days)
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence?): FilterResults {
+                val filterResults = FilterResults()
+                val localList = ArrayList<Client>()
+                if (charSequence == null || charSequence.isEmpty()) {
+                    filterResults.values = _myClientsListFiltered
+                    filterResults.count = _myClientsListFiltered.size
+                } else {
+                    var searchString = charSequence.toString().toLowerCase()
+                    for (item in _myClientsListFiltered) {
+                        if (item.name.toLowerCase().contains(searchString)) {
+                            Log.i("PESQUISA", "${charSequence}")
+                            localList.add(item)
+                        }
+                    }
+                    filterResults.count = localList.size
+                    filterResults.values = localList
+                }
+
+                return filterResults
+            }
+
+            override fun publishResults(
+                charSequence: CharSequence?,
+                filteredResults: FilterResults?
+            ) {
+                _myClientsList.clear()
+                _myClientsList.addAll(filteredResults!!.values as ArrayList<Client>)
+                notifyDataSetChanged()
+            }
+
+        }
     }
 
 }

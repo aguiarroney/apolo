@@ -228,7 +228,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         builder.setNegativeButton("Lead") { _: DialogInterface, _: Int ->
             val lead = Lead(
                 "30",
-                "Novo Cliente",
+                "Novo Lead",
                 "Rua Pedro Nolasco",
                 10.0,
                 "varejo",
