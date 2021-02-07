@@ -12,5 +12,6 @@ data class Lead(
     @Json(name = "qnt_visits") val visitQnt: String, // quantidade de visitas
     @Json(name = "next_visit") val nextVisit: String, // data da prx visita "12/01/2021",
     val lat: Double,
-    val lng: Double
+    val lng: Double,
+    val proposta: Boolean
 )

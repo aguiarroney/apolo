@@ -8,4 +8,5 @@
     <string name="tpv_icon">tpv icon</string>
     <string name="excluir">Excluir</string>
     <string name="converter">Converter</string>
+    <string name="proposta_enviada">Proposta Enviada</string>
 </resources>

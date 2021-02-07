@@ -236,6 +236,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                 "15/12",
                 latLng!!.latitude,
                 latLng.longitude,
+                true
             )
 
             val marker = mMap.addMarker(

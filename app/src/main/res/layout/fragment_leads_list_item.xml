@@ -50,12 +50,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/btn_proposta"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/proposta"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_lead_address" />
+
+        <TextView
+            android:id="@+id/tv_proposta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/proposta_enviada"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/btn_proposta" />
 
         <ImageView
             android:id="@+id/iv_lead_tpv_icon"
@@ -82,9 +93,7 @@
             android:layout_marginTop="5dp"
             android:textSize="@dimen/font_size_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_lead_name"
-
-            />
+            app:layout_constraintTop_toBottomOf="@id/tv_lead_name" />
 
         <TextView
             android:id="@+id/tv_lead_visits_qnt"
@@ -93,9 +102,7 @@
             android:layout_marginTop="5dp"
             android:textSize="@dimen/font_size_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_status"
-
-            />
+            app:layout_constraintTop_toBottomOf="@id/tv_status" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
