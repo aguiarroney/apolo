@@ -31,9 +31,13 @@ class DetailFragment : Fragment() {
         // o código aqui implementado é apenas uma representação do efeito visual dessa ação no app
         binding.btnConvert.setOnClickListener {
             viewModel.getMarker()?.let { marker ->
-                val lead: Lead = marker.tag as Lead
-                val client = Client(lead.id, lead.name, lead.address, lead.tpv, "", "", lead.nextVisit, lead.lat, lead.lng, "Satisfeito")
-                viewModel.converPin(client)
+                when(marker.tag){
+                    is Lead ->{
+                        val lead: Lead = marker.tag as Lead
+                        val client = Client(lead.id, lead.name, lead.address, lead.tpv, "", "", lead.nextVisit, lead.lat, lead.lng, "Satisfeito")
+                        viewModel.converPin(client)
+                    }
+                }
             }
         }
 
