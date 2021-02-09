@@ -58,97 +58,16 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         //flitra os pins por TPV
         binding.btnClusterMax.setOnClickListener {
-            val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
-            var marker: Marker
-            if (!markerList.isNullOrEmpty()) {
-                for (i in markerList.indices) {
-                    Log.i("TPV For", "${i}")
-                    marker = markerList.get(i)
-                    when (marker.tag) {
-                        is Client -> {
-                            if (marker.tag != null) {
-                                val obj: Client = marker.tag as Client
-                                Log.i("TPV Client", "${obj.tpv}")
-                                if (obj.tpv <= 20000.0) {
-                                    marker.isVisible = false
-                                }
-                            }
-                        }
-                        else -> {
-                            if (marker.tag != null) {
-                                val obj: Lead = marker.tag as Lead
-                                Log.i("TPV Lead", "${obj.tpv}")
-                                if (obj.tpv <= 20000.0) {
-                                    marker.isVisible = false
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            setFilterLimits(0)
         }
 
         binding.btnClusterBetween.setOnClickListener {
-            val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
-            var marker: Marker
-            if (!markerList.isNullOrEmpty()) {
-                for (i in markerList.indices) {
-                    Log.i("TPV For", "${i}")
-                    marker = markerList.get(i)
-                    when (marker.tag) {
-                        is Client -> {
-                            if (marker.tag != null) {
-                                val obj: Client = marker.tag as Client
-                                Log.i("TPV Client", "${obj.tpv}")
-                                if (obj.tpv > 20000.0 || obj.tpv < 10000.0) {
-                                    marker.isVisible = false
-                                }
-                            }
-                        }
-                        else -> {
-                            if (marker.tag != null) {
-                                val obj: Lead = marker.tag as Lead
-                                Log.i("TPV Lead", "${obj.tpv}")
-                                if (obj.tpv > 20000.0 || obj.tpv < 10000.0) {
-                                    marker.isVisible = false
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            setFilterLimits(2)
         }
 
         //flitra os pins por TPV
         binding.btnClusterMin.setOnClickListener {
-            val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
-            var marker: Marker
-            if (!markerList.isNullOrEmpty()) {
-                for (i in markerList.indices) {
-                    Log.i("TPV For", "${i}")
-                    marker = markerList.get(i)
-                    when (marker.tag) {
-                        is Client -> {
-                            if (marker.tag != null) {
-                                val obj: Client = marker.tag as Client
-                                Log.i("TPV Client", "${obj.tpv}")
-                                if (obj.tpv >= 10000.0) {
-                                    marker.isVisible = false
-                                }
-                            }
-                        }
-                        else -> {
-                            if (marker.tag != null) {
-                                val obj: Lead = marker.tag as Lead
-                                Log.i("TPV Lead", "${obj.tpv}")
-                                if (obj.tpv >= 10000.0) {
-                                    marker.isVisible = false
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            setFilterLimits(1)
         }
 
         // Limpa todos os filtros de cluster
@@ -198,6 +117,47 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         mMap.setOnMarkerClickListener(this)
         mMap.setOnMapLongClickListener(this)
         viewModel.setMap(mMap)
+    }
+
+    fun setFilterLimits(filter: Int) {
+        val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
+        var marker: Marker
+        var tpv:Double
+        if (!markerList.isNullOrEmpty()) {
+            for (i in markerList.indices) {
+                marker = markerList.get(i)
+
+                if (marker.tag is Client) {
+                    val obj: Client = marker.tag as Client
+                    tpv = obj.tpv
+                }
+                else{
+                    val obj: Lead = marker.tag as Lead
+                    tpv = obj.tpv
+                }
+
+                if (tpv != null) {
+                    Log.i("TPV Client", "${tpv}")
+                    when (filter) {
+                        0 -> {
+                            if (tpv <= 20000.0) {
+                                marker.isVisible = false
+                            }
+                        }
+                        1 -> {
+                            if (tpv >= 10000.0) {
+                                marker.isVisible = false
+                            }
+                        }
+                        else -> {
+                            if (tpv > 20000.0 || tpv < 10000.0) {
+                                marker.isVisible = false
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {
