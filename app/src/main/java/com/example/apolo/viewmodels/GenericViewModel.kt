@@ -114,7 +114,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
             val latLng = LatLng(mList[i].lat, mList[i].lng)
             bounds.include(latLng)
             marker = _map.value!!.addMarker(
-                MarkerOptions().position(latLng).title("Cliente ${mList[i].id}").icon(
+                MarkerOptions().position(latLng).title("Cliente ${mList[i].name}").icon(
                     BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
                 )
             )

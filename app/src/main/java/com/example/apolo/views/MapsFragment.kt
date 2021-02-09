@@ -122,18 +122,21 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     fun setFilterLimits(filter: Int) {
         val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
         var marker: Marker
-        var tpv:Double
+        var tpv = 0.0
         if (!markerList.isNullOrEmpty()) {
             for (i in markerList.indices) {
                 marker = markerList.get(i)
 
-                if (marker.tag is Client) {
-                    val obj: Client = marker.tag as Client
-                    tpv = obj.tpv
-                }
-                else{
-                    val obj: Lead = marker.tag as Lead
-                    tpv = obj.tpv
+                if(marker.tag != null){
+                    marker.isVisible = true
+                    if (marker.tag is Client) {
+                        val obj: Client = marker.tag as Client
+                        tpv = obj.tpv
+                    }
+                    else{
+                        val obj: Lead = marker.tag as Lead
+                        tpv = obj.tpv
+                    }
                 }
 
                 if (tpv != null) {
