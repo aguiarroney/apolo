@@ -32,26 +32,41 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     fun getMarkerList() = _markerList.value
 
     fun fetchClients() {
-        Log.i("CHAMADA API", "CLIENT")
         viewModelScope.launch {
             val response = repository.fetchClients()
-            clientsList.value = response
+            if (response != null) {
+                if(response.isSuccessful)
+                    clientsList.value = response
+                else{
+                    Log.i("ERRO CLIENTS API", "${response.code()}")
+                }
+            }
         }
     }
 
     fun fetchPoloLimits() {
-        Log.i("CHAMADA API", "POLO")
         viewModelScope.launch {
             val response = repository.fetchPoloLimits()
-            polo.value = response
+            if (response != null) {
+                if(response.isSuccessful)
+                    polo.value = response
+                else{
+                    Log.i("ERRO POLO API", "${response.code()}")
+                }
+            }
         }
     }
 
     fun fetchLeads() {
-        Log.i("CHAMADA API", "LEAD")
         viewModelScope.launch {
             val response = repository.fetchLeads()
-            leadsList.value = response
+            if (response != null) {
+                if(response.isSuccessful)
+                    leadsList.value = response
+                else{
+                    Log.i("ERRO LEADS API", "${response.code()}")
+                }
+            }
         }
     }
 
@@ -59,10 +74,12 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     fun deleteClient(url: String) {
         viewModelScope.launch {
             val response = repository.deleteClient(url)
-            if (response.isSuccessful) {
-                Log.i("CLIENTE", "DELETOU COM SUCESSO")
-            } else {
-                Log.i("CLIENTE", "falha: ${response.code()}")
+            if (response != null) {
+                if (response.isSuccessful) {
+                    Log.i("CLIENTE", "DELETOU COM SUCESSO")
+                } else {
+                    Log.i("CLIENTE", "falha: ${response.code()}")
+                }
             }
         }
     }
@@ -71,10 +88,12 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     fun deleteLead(url: String) {
         viewModelScope.launch {
             val response = repository.deleteLead(url)
-            if (response.isSuccessful) {
-                Log.i("LEAD", "DELETOU COM SUCESSO")
-            } else {
-                Log.i("LEAD", "falha: ${response.code()}")
+            if (response != null) {
+                if (response.isSuccessful) {
+                    Log.i("LEAD", "DELETOU COM SUCESSO")
+                } else {
+                    Log.i("LEAD", "falha: ${response.code()}")
+                }
             }
         }
     }

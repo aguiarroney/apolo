@@ -3,31 +3,53 @@ package com.example.apolo.repository
 import com.example.apolo.models.Client
 import com.example.apolo.models.Lead
 import com.example.apolo.models.Polo
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
+import java.lang.Exception
 
-class Repository{
+class Repository {
 
-    suspend fun fetchClients(): Response<List<Client>> {
-        return RetrofitInstance.mockApi.fetchClients()
+    suspend fun fetchClients(): Response<List<Client>>? {
+        return try {
+
+            RetrofitInstance.mockApi.fetchClients()
+        } catch (e: Exception) {
+            null
+        }
     }
 
-    suspend fun fetchPoloLimits(): Response<List<Polo>>{
-        return RetrofitInstance.mockApi.fetchPoloLimits()
+    suspend fun fetchPoloLimits(): Response<List<Polo>>? {
+        return try {
+            RetrofitInstance.mockApi.fetchPoloLimits()
+        } catch (e: Exception) {
+            null
+        }
     }
 
-    suspend fun fetchLeads(): Response<List<Lead>>{
-        return RetrofitInstance.mockApi.fetchLeads()
+    suspend fun fetchLeads(): Response<List<Lead>>? {
+        return try {
+            RetrofitInstance.mockApi.fetchLeads()
+        } catch (e: Exception) {
+            null
+        }
     }
 
-    suspend fun deleteLead(url: String) : Response<Lead>{
-        return RetrofitInstance.mockApi.deleteLead(url)
+    suspend fun deleteLead(url: String): Response<Lead>? {
+        return try {
+            RetrofitInstance.mockApi.deleteLead(url)
+        } catch (e: Exception) {
+            null
+        }
     }
 
-    suspend fun deleteClient(url: String): Response<Client> {
-        return RetrofitInstance.mockApi.deleteClient(url)
+    suspend fun deleteClient(url: String): Response<Client>? {
+        return try {
+            RetrofitInstance.mockApi.deleteClient(url)
+        } catch (e: Exception) {
+            null
+        }
     }
 
-    suspend fun postClient() {
-        return RetrofitInstance.mockApi.postClient()
-    }
 }

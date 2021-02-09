@@ -4,6 +4,7 @@ import com.example.apolo.models.Client
 import com.example.apolo.models.Lead
 import com.example.apolo.models.Polo
 import com.google.android.gms.maps.model.LatLng
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
