@@ -60,25 +60,27 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         binding.btnClusterMax.setOnClickListener {
             val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
             var marker: Marker
-            for (i in markerList!!.indices) {
-                Log.i("TPV For", "${i}")
-                marker = markerList.get(i)
-                when (marker.tag) {
-                    is Client -> {
-                        if (marker.tag != null) {
-                            val obj: Client = marker!!.tag as Client
-                            Log.i("TPV Client", "${obj.tpv}")
-                            if (obj.tpv <= 20000.0) {
-                                marker.isVisible = false
+            if (!markerList.isNullOrEmpty()) {
+                for (i in markerList.indices) {
+                    Log.i("TPV For", "${i}")
+                    marker = markerList.get(i)
+                    when (marker.tag) {
+                        is Client -> {
+                            if (marker.tag != null) {
+                                val obj: Client = marker.tag as Client
+                                Log.i("TPV Client", "${obj.tpv}")
+                                if (obj.tpv <= 20000.0) {
+                                    marker.isVisible = false
+                                }
                             }
                         }
-                    }
-                    else -> {
-                        if (marker.tag != null) {
-                            val obj: Lead = marker.tag as Lead
-                            Log.i("TPV Lead", "${obj.tpv}")
-                            if (obj.tpv <= 20000.0) {
-                                marker.isVisible = false
+                        else -> {
+                            if (marker.tag != null) {
+                                val obj: Lead = marker.tag as Lead
+                                Log.i("TPV Lead", "${obj.tpv}")
+                                if (obj.tpv <= 20000.0) {
+                                    marker.isVisible = false
+                                }
                             }
                         }
                     }
@@ -89,25 +91,27 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         binding.btnClusterBetween.setOnClickListener {
             val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
             var marker: Marker
-            for (i in markerList!!.indices) {
-                Log.i("TPV For", "${i}")
-                marker = markerList.get(i)
-                when (marker.tag) {
-                    is Client -> {
-                        if (marker.tag != null) {
-                            val obj: Client = marker.tag as Client
-                            Log.i("TPV Client", "${obj.tpv}")
-                            if (obj.tpv > 20000.0 || obj.tpv < 10000.0) {
-                                marker.isVisible = false
+            if (!markerList.isNullOrEmpty()) {
+                for (i in markerList.indices) {
+                    Log.i("TPV For", "${i}")
+                    marker = markerList.get(i)
+                    when (marker.tag) {
+                        is Client -> {
+                            if (marker.tag != null) {
+                                val obj: Client = marker.tag as Client
+                                Log.i("TPV Client", "${obj.tpv}")
+                                if (obj.tpv > 20000.0 || obj.tpv < 10000.0) {
+                                    marker.isVisible = false
+                                }
                             }
                         }
-                    }
-                    else -> {
-                        if (marker.tag != null) {
-                            val obj: Lead = marker.tag as Lead
-                            Log.i("TPV Lead", "${obj.tpv}")
-                            if (obj.tpv > 20000.0 || obj.tpv < 10000.0) {
-                                marker.isVisible = false
+                        else -> {
+                            if (marker.tag != null) {
+                                val obj: Lead = marker.tag as Lead
+                                Log.i("TPV Lead", "${obj.tpv}")
+                                if (obj.tpv > 20000.0 || obj.tpv < 10000.0) {
+                                    marker.isVisible = false
+                                }
                             }
                         }
                     }
@@ -119,25 +123,27 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         binding.btnClusterMin.setOnClickListener {
             val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
             var marker: Marker
-            for (i in markerList!!.indices) {
-                Log.i("TPV For", "${i}")
-                marker = markerList.get(i)
-                when (marker.tag) {
-                    is Client -> {
-                        if (marker.tag != null) {
-                            val obj: Client = marker.tag as Client
-                            Log.i("TPV Client", "${obj.tpv}")
-                            if (obj.tpv >= 10000.0) {
-                                marker.isVisible = false
+            if (!markerList.isNullOrEmpty()) {
+                for (i in markerList.indices) {
+                    Log.i("TPV For", "${i}")
+                    marker = markerList.get(i)
+                    when (marker.tag) {
+                        is Client -> {
+                            if (marker.tag != null) {
+                                val obj: Client = marker.tag as Client
+                                Log.i("TPV Client", "${obj.tpv}")
+                                if (obj.tpv >= 10000.0) {
+                                    marker.isVisible = false
+                                }
                             }
                         }
-                    }
-                    else -> {
-                        if (marker.tag != null) {
-                            val obj: Lead = marker.tag as Lead
-                            Log.i("TPV Lead", "${obj.tpv}")
-                            if (obj.tpv >= 10000.0) {
-                                marker.isVisible = false
+                        else -> {
+                            if (marker.tag != null) {
+                                val obj: Lead = marker.tag as Lead
+                                Log.i("TPV Lead", "${obj.tpv}")
+                                if (obj.tpv >= 10000.0) {
+                                    marker.isVisible = false
+                                }
                             }
                         }
                     }
@@ -150,10 +156,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
 
             var marker: Marker
-            for (i in markerList!!.indices) {
-                marker = markerList.get(i)
-                marker.isVisible = true
+            if (!markerList.isNullOrEmpty()) {
+                for (i in markerList.indices) {
+                    marker = markerList.get(i)
+                    marker.isVisible = true
+                }
             }
+
         }
 
         viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
@@ -240,7 +249,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         builder.setNegativeButton("Lead") { _: DialogInterface, _: Int ->
             val lead = Lead(
                 "30",
-                "Novo Lead",
+                "Novo Restaurante",
                 "Rua Pedro Nolasco",
                 10.0,
                 "varejo",
