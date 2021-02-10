@@ -13,4 +13,12 @@
     <string name="mapa">Mapa</string>
     <string name="leads">Leads</string>
     <string name="clientes">Clientes</string>
+    <string name="pressione_um_ponto_na_tela_para_criar_um_novo_pin">Pressione um ponto na tela para criar um novo pin</string>
+    <string name="icone_da_visita">Icone da visita</string>
+    <string name="_20k">20k</string>
+    <string name="k"><![CDATA[>k>]]></string>
+    <string name="_10k">10k</string>
+    <string name="c">C</string>
+    <string name="next_visit_icon">Next visit icon</string>
+    <string name="tpv_icon_desc">TPV icon</string>
 </resources>

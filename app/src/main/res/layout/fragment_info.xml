@@ -22,8 +22,7 @@
                 android:id="@+id/tv_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="Pressione um ponto na tela para criar um novo pin"
+                android:text="@string/pressione_um_ponto_na_tela_para_criar_um_novo_pin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

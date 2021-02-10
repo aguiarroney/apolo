@@ -42,7 +42,7 @@
             android:id="@+id/iv_last_visit_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Icone da visita"
+            android:contentDescription="@string/icone_da_visita"
             app:layout_constraintEnd_toStartOf="@id/tv_last_visit_text"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
             app:srcCompat="@drawable/ic_baseline_settings_backup_restore_20" />
@@ -61,7 +61,7 @@
             android:id="@+id/iv_tpv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Icone da visita"
+            android:contentDescription="@string/icone_da_visita"
             app:layout_constraintEnd_toStartOf="@+id/tv_tpv_text"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
             app:srcCompat="@drawable/ic_baseline_attach_money_20" />
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_five"
-            android:contentDescription="Icone da visita"
+            android:contentDescription="@string/icone_da_visita"
             app:layout_constraintEnd_toStartOf="@id/tv_next_visit_text"
             app:layout_constraintTop_toBottomOf="@id/iv_last_visit_icon"
             app:srcCompat="@drawable/ic_baseline_calendar_today_20" />

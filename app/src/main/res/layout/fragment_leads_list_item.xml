@@ -37,7 +37,8 @@
             android:layout_marginTop="@dimen/margin_five"
             app:layout_constraintEnd_toStartOf="@id/tv_lead_next_visit_text"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_calendar_today_20" />
+            app:srcCompat="@drawable/ic_baseline_calendar_today_20"
+            android:contentDescription="@string/next_visit_icon" />
 
         <TextView
             android:id="@+id/tv_lead_next_visit_text"

@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.apolo.R
 import com.example.apolo.models.Client
 import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ClientsListAdapter : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>(), Filterable {
 
@@ -91,9 +93,11 @@ class ClientsListAdapter : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>()
                 if (charSequence == null || charSequence.isEmpty()) {
                     filterResults.values = _myClientsListFiltered
                 } else {
-                    var searchString = charSequence.toString().toLowerCase()
+                    var searchString = charSequence.toString().toLowerCase(Locale.ROOT)
                     for (item in _myClientsListFiltered) {
-                        if (item.name.toLowerCase().contains(searchString) || item.address.toLowerCase().contains(searchString)) {
+                        if (item.name.toLowerCase(Locale.ROOT).contains(searchString) || item.address.toLowerCase(
+                                Locale.ROOT
+                            ).contains(searchString)) {
                             localList.add(item)
                         }
                     }
