@@ -13,7 +13,7 @@ class InfoFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentInfoBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

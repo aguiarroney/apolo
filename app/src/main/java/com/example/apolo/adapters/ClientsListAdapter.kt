@@ -1,7 +1,6 @@
 package com.example.apolo.adapters
 
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import com.example.apolo.R
 import com.example.apolo.models.Client
 import java.time.LocalDate
 
-class ClientsListAdapter() : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>(), Filterable {
+class ClientsListAdapter : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>(), Filterable {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemName: TextView = itemView.findViewById(R.id.tv_name)

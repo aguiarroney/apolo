@@ -6,7 +6,6 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.example.apolo.R
 import com.example.apolo.adapters.ClientsListAdapter
 import com.example.apolo.databinding.FragmentClientListBinding
@@ -22,13 +21,13 @@ class ClientListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentClientListBinding.inflate(layoutInflater, container, false)
         binding.list.adapter = adapter
 
         viewModel.fetchClients()
 
-        viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.clientsList.observe(viewLifecycleOwner, { response ->
             if (response.isSuccessful) {
                 Log.i("SUCCESS", "${response.body()}")
                 response.body()?.let {

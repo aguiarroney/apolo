@@ -1,9 +1,7 @@
 package com.example.apolo.adapters
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import com.example.apolo.adapters.ClientsListAdapter
-import java.time.LocalDate
 
 class ClientsListAdapterTest{
 

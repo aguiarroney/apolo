@@ -3,11 +3,7 @@ package com.example.apolo.repository
 import com.example.apolo.models.Client
 import com.example.apolo.models.Lead
 import com.example.apolo.models.Polo
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
-import java.lang.Exception
 
 class Repository {
 

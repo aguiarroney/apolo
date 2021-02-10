@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,7 +11,6 @@ import com.example.apolo.databinding.FragmentDetailBinding
 import com.example.apolo.models.Client
 import com.example.apolo.models.Lead
 import com.example.apolo.viewmodels.GenericViewModel
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 
 class DetailFragment : Fragment() {
 
@@ -23,7 +21,7 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDetailBinding.inflate(layoutInflater, container, false)
         binding.btnConvert.isVisible = false
 

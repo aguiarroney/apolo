@@ -2,15 +2,13 @@ package com.example.apolo.views
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.example.apolo.R
 import com.example.apolo.databinding.FragmentMapsBinding
 import com.example.apolo.models.Client
@@ -18,7 +16,6 @@ import com.example.apolo.models.Lead
 import com.example.apolo.repository.Repository
 import com.example.apolo.viewmodels.GenericViewModel
 import com.example.apolo.viewmodels.GenericViewModelFactory
-
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -26,7 +23,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlin.collections.ArrayList
 
 class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMapLongClickListener {
@@ -40,7 +36,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
         viewModel.fetchClients()
@@ -84,7 +80,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         }
 
-        viewModel.clientsList.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.clientsList.observe(viewLifecycleOwner, { response ->
 
             if (response.isSuccessful) {
                 response.body()?.let {
@@ -95,7 +91,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             }
         })
 
-        viewModel.polo.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.polo.observe(viewLifecycleOwner, { response ->
 
             if (response.isSuccessful) {
                 response.body()?.let { viewModel.drawLimits(mMap, it) }
@@ -104,7 +100,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             }
         })
 
-        viewModel.leadsList.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.leadsList.observe(viewLifecycleOwner, { response ->
             if (response.isSuccessful) {
                 response.body()?.let {
                     viewModel.setLeadPins(it)
@@ -140,7 +136,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
                 }
 
                 if (tpv != null) {
-                    Log.i("TPV Client", "${tpv}")
+                    Log.i("TPV Client", "$tpv")
                     when (filter) {
                         0 -> {
                             if (tpv <= 20000.0) {

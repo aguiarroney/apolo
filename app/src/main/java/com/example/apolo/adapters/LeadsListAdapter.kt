@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.apolo.R
 import com.example.apolo.models.Lead
 
-class LeadsListAdapter() : RecyclerView.Adapter<LeadsListAdapter.ViewHolder>() {
+class LeadsListAdapter : RecyclerView.Adapter<LeadsListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemName: TextView = itemView.findViewById(R.id.tv_lead_name)
