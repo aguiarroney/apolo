@@ -10,4 +10,7 @@
     <string name="converter">Converter</string>
     <string name="proposta_enviada">Proposta Enviada</string>
     <string name="pesquisar">Pesquisar</string>
+    <string name="mapa">Mapa</string>
+    <string name="leads">Leads</string>
+    <string name="clientes">Clientes</string>
 </resources>
