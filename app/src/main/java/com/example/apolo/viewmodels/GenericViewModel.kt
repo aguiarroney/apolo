@@ -98,14 +98,6 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-//     esta função foi criada inicialmente para ser utilizada nomomento da criação de um novo pin
-//    porem o post na API utilizada gera valores de latitude e longitude aleatórios, causando um comportamento indevido na aplicação
-//    fun postClient(){
-//        viewModelScope.launch {
-//            val response = repository.postClient()
-//        }
-//    }
-
     //função responsavel por criar os pins de clientes no mapa
     fun setClientPins(mList: List<Client>) {
         val bounds = LatLngBounds.builder()

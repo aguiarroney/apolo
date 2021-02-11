@@ -123,13 +123,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             for (i in markerList.indices) {
                 marker = markerList.get(i)
 
-                if(marker.tag != null){
+                if (marker.tag != null) {
                     marker.isVisible = true
                     if (marker.tag is Client) {
                         val obj: Client = marker.tag as Client
                         tpv = obj.tpv
-                    }
-                    else{
+                    } else {
                         val obj: Lead = marker.tag as Lead
                         tpv = obj.tpv
                     }
@@ -177,12 +176,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     // o código aqui implementado é apenas uma representação do efeito visual dessa ação no app
 
     override fun onMapLongClick(latLng: LatLng?) {
-        //TODO melhorar este fluxo / instaciação feita apenas para teste
-
+        // melhorar este fluxo / instaciação feita apenas demonstrar o caso de uso
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Adicionar cliente ou pin?")
+        builder.setTitle("Adicionar lead ou cliente?")
         builder.setPositiveButton("Cliente") { _: DialogInterface, _: Int ->
-            //TODO melhorar este fluxo / instaciação feita apenas para teste
             val client = Client(
                 "30",
                 "Novo Cliente",
@@ -198,7 +195,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
             val marker = mMap.addMarker(
                 MarkerOptions().position(LatLng(client.lat, client.lng))
-                    .title("Cliente ${client.id}").icon(
+                    .title("Cliente ${client.name}").icon(
                         BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
                     )
             )
@@ -206,6 +203,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             viewModel.addMarkerToList(marker)
         }
         builder.setNegativeButton("Lead") { _: DialogInterface, _: Int ->
+            // instaciação feita apenas demonstrar o caso de uso
             val lead = Lead(
                 "30",
                 "Novo Restaurante",
@@ -221,7 +219,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
             val marker = mMap.addMarker(
                 MarkerOptions().position(LatLng(lead.lat, lead.lng))
-                    .title("Lead ${lead.id}").icon(
+                    .title("Lead ${lead.name}").icon(
                         BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
                     )
             )
