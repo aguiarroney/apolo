@@ -32,7 +32,7 @@ O app é composto por uma tela principal que contem um mapa onde é possivel que
 Além disso, nesta tela é possivel visualizar detalhes sobre os pins, criar novos pins de Leads ou clientes, deletar pins e converter pins de Leads em clientes.
 Por fim, é possivel exibir os pins do mapa por clusters de de TPV. Sendo os clusters agrupadores para exibir pins com TPV menor que 10k, TPV entre 10k e 20k e TPV maior do que 20k.
 
-![](/files/mapa.jpeg) ![](/files/mapa_add.jpeg) ![](/files/mapa_details.jpeg)
+![](/files/mapa.jpeg) ![](/files/mapa_details.jpeg) ![](/files/mapa_add.jpeg)
 
 
 ### Tela de Clientes
