@@ -44,8 +44,8 @@ class ClientsListAdapter : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>()
         holder.itemName.text = _myClientsList[position].name
         holder.itemAddress.text = _myClientsList[position].address
         holder.itemNexVisit.text = _myClientsList[position].nextVisit
-        holder.itemLastVisit.text =
-            "há " + setLastVisit(_myClientsList[position].lastVisit).toString()
+        holder.itemLastVisit.text = holder.itemView.context.getString(R.string.dias, setLastVisit(_myClientsList[position].lastVisit).toString())
+
         holder.itemtpv.text = _myClientsList[position].tpv.toString()
         holder.itemSatsfaction.text = _myClientsList[position].satisfaction
     }
@@ -54,14 +54,14 @@ class ClientsListAdapter : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>()
         _myClientsListFiltered.clear()
         _myClientsList.clear()
         _myClientsList.addAll(newList as ArrayList<Client>)
-        _myClientsListFiltered.addAll(newList as ArrayList<Client>)
+        _myClientsListFiltered.addAll(newList)
         notifyDataSetChanged()
     }
 
     private fun getDaysInMonth(month: Int): Int {
-        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) return 31
-        else if (month == 4 || month == 6 || month == 9 || month == 11) return 30
-        else return 28
+        return if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) 31
+        else if (month == 4 || month == 6 || month == 9 || month == 11) 30
+        else 28
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -76,10 +76,10 @@ class ClientsListAdapter : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>()
         if (lastMonth == monthNow) {
             days = dayNow - lastDay
         } else if (lastMonth < monthNow) {
-            if (lastDay > dayNow)
-                days = (getDaysInMonth(lastMonth) - lastDay) + dayNow
+            days = if (lastDay > dayNow)
+                (getDaysInMonth(lastMonth) - lastDay) + dayNow
             else
-                days = dayNow - lastDay
+                dayNow - lastDay
         }
 
         return (days)
@@ -93,7 +93,7 @@ class ClientsListAdapter : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>()
                 if (charSequence == null || charSequence.isEmpty()) {
                     filterResults.values = _myClientsListFiltered
                 } else {
-                    var searchString = charSequence.toString().toLowerCase(Locale.ROOT)
+                    val searchString = charSequence.toString().toLowerCase(Locale.ROOT)
                     for (item in _myClientsListFiltered) {
                         if (item.name.toLowerCase(Locale.ROOT).contains(searchString) || item.address.toLowerCase(
                                 Locale.ROOT

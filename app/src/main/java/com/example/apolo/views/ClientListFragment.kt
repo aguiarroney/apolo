@@ -31,7 +31,7 @@ class ClientListFragment : Fragment() {
             if (response.isSuccessful) {
                 Log.i("SUCCESS", "${response.body()}")
                 response.body()?.let {
-                    binding.tvQntEcs.text = "Quanditade de Clientes: ${it.size}"
+                    binding.tvQntEcs.text = requireContext().getString(R.string.qnt_clients, it.size)
                     adapter.setData(it)
                 }
             } else {

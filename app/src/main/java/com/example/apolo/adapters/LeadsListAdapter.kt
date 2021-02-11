@@ -1,12 +1,12 @@
 package com.example.apolo.adapters
 
+import com.example.apolo.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.example.apolo.R
 import com.example.apolo.models.Lead
 
 class LeadsListAdapter : RecyclerView.Adapter<LeadsListAdapter.ViewHolder>() {
@@ -35,7 +35,7 @@ class LeadsListAdapter : RecyclerView.Adapter<LeadsListAdapter.ViewHolder>() {
         holder.itemName.text = myLeadsList[position].name
         holder.itemAddress.text = myLeadsList[position].address
         holder.itemNexVisit.text = myLeadsList[position].nextVisit
-        holder.itemVisitQnt.text = "Visitas: " + myLeadsList[position].visitQnt
+        holder.itemVisitQnt.text = holder.itemView.context.getString(R.string.visitas, myLeadsList[position].visitQnt)
         holder.itemtpv.text = myLeadsList[position].tpv.toString()
         holder.itemStatus.text = myLeadsList[position].status
         if(myLeadsList[position].proposta){

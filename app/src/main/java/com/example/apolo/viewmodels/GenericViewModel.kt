@@ -21,9 +21,9 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     private var _map: MutableLiveData<GoogleMap> = MutableLiveData()
     private var _markerList: MutableLiveData<ArrayList<Marker>> = MutableLiveData()
 
-    fun addMarkerToList(marker: Marker){
+    fun addMarkerToList(marker: Marker) {
 
-        if(_markerList.value == null)
+        if (_markerList.value == null)
             _markerList.value = ArrayList()
 
         _markerList.value!!.add(marker)
@@ -35,9 +35,9 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.fetchClients()
             if (response != null) {
-                if(response.isSuccessful)
+                if (response.isSuccessful)
                     clientsList.value = response
-                else{
+                else {
                     Log.i("ERRO CLIENTS API", "${response.code()}")
                 }
             }
@@ -48,9 +48,9 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.fetchPoloLimits()
             if (response != null) {
-                if(response.isSuccessful)
+                if (response.isSuccessful)
                     polo.value = response
-                else{
+                else {
                     Log.i("ERRO POLO API", "${response.code()}")
                 }
             }
@@ -61,9 +61,9 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.fetchLeads()
             if (response != null) {
-                if(response.isSuccessful)
+                if (response.isSuccessful)
                     leadsList.value = response
-                else{
+                else {
                     Log.i("ERRO LEADS API", "${response.code()}")
                 }
             }
@@ -113,8 +113,15 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
             marker.tag = mList[i]
             addMarkerToList(marker)
         }
-        if (!mList.isEmpty()) {
-            _map.value!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
+        if (mList.isNotEmpty()) {
+            _map.value!!.moveCamera(
+                CameraUpdateFactory.newLatLngBounds(
+                    bounds.build(),
+                    1000,
+                    1000,
+                    100
+                )
+            )
         }
     }
 
@@ -133,8 +140,15 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
             marker.tag = mList[i]
             addMarkerToList(marker)
         }
-        if (!mList.isEmpty()) {
-            _map.value!!.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 1000, 1000, 100))
+        if (mList.isNotEmpty()) {
+            _map.value!!.moveCamera(
+                CameraUpdateFactory.newLatLngBounds(
+                    bounds.build(),
+                    1000,
+                    1000,
+                    100
+                )
+            )
         }
     }
 
@@ -147,10 +161,12 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
             latLngList.add(LatLng(limits[i].lat, limits[i].lng))
         }
 
-        val polygonOptions: PolygonOptions =
-            PolygonOptions().addAll(latLngList).fillColor(0x1000FF00).strokeWidth(5f)
-        val polygon = _map.value!!.addPolygon(polygonOptions)
-        polygon.tag = "alpha"
+        if (latLngList.isNotEmpty()) {
+            val polygonOptions: PolygonOptions =
+                PolygonOptions().addAll(latLngList).fillColor(0x1000FF00).strokeWidth(5f)
+            val polygon = _map.value!!.addPolygon(polygonOptions)
+            polygon.tag = "alpha"
+        }
     }
 
     //funções utilizadas pelo Fragment filho do MapsFragment responsavel por mostrar os detalhes dos pins
@@ -161,19 +177,20 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
 
     fun getMarker() = _marker.value
 
-    fun converPin(client: Client){
+    fun converPin(client: Client) {
         _marker.value!!.remove()
         val marker = _map.value!!.addMarker(
-            MarkerOptions().position(LatLng(client.lat, client.lng)).title("Cliente ${client.name}").icon(
-                BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
-            )
+            MarkerOptions().position(LatLng(client.lat, client.lng)).title("Cliente ${client.name}")
+                .icon(
+                    BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
+                )
         )
         marker.tag = client
         setMarker(marker)
         addMarkerToList(marker)
     }
 
-    fun setMap(map: GoogleMap){
+    fun setMap(map: GoogleMap) {
         _map.value = map
     }
 }

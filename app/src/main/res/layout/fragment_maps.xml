@@ -39,11 +39,12 @@
         android:id="@+id/btn_cluster_max"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginEnd="@dimen/margin_five"
         android:layout_marginRight="@dimen/margin_five"
         android:layout_marginBottom="@dimen/margin_twenty"
         android:background="@drawable/custom_circular_button"
         android:text="@string/_20k"
-        android:textSize="10sp"
+        android:textSize="@dimen/font_size_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_info" />
 
@@ -52,12 +53,13 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="@dimen/margin_five"
+        android:layout_marginEnd="@dimen/margin_five"
         android:layout_marginRight="@dimen/margin_five"
         android:background="@drawable/custom_circular_button"
         android:text="@string/k"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/font_size_detail"
         app:layout_constraintBottom_toTopOf="@id/btn_cluster_min"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_cluster_max" />
 
     <Button
@@ -65,10 +67,11 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="@dimen/margin_five"
+        android:layout_marginEnd="@dimen/margin_five"
         android:layout_marginRight="@dimen/margin_five"
         android:background="@drawable/custom_circular_button"
         android:text="@string/_10k"
-        android:textSize="10sp"
+        android:textSize="@dimen/font_size_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_cluster_between" />
 
@@ -77,10 +80,11 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="@dimen/margin_five"
+        android:layout_marginEnd="@dimen/margin_five"
         android:layout_marginRight="@dimen/margin_five"
         android:background="@drawable/custom_circular_button"
         android:text="@string/c"
-        android:textSize="10sp"
+        android:textSize="@dimen/font_size_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_cluster_min" />
 

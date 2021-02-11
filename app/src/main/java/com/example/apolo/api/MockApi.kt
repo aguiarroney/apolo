@@ -6,7 +6,6 @@ import com.example.apolo.models.Polo
 import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Url
 
 interface MockApi{
@@ -24,11 +23,5 @@ interface MockApi{
 
     @DELETE
     suspend fun deleteClient(@Url url: String):Response<Client>
-
-    @POST("clients")
-    suspend fun postClient()
-
-    @POST("leads")
-    suspend fun posTLead()
 
 }

@@ -52,6 +52,7 @@
             android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/padding_five"
+            android:paddingStart="@dimen/padding_five"
             android:paddingRight="@dimen/padding_five"
             android:textSize="@dimen/font_size_detail"
             app:layout_constraintEnd_toStartOf="@id/iv_tpv"

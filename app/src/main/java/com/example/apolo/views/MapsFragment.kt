@@ -73,7 +73,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             var marker: Marker
             if (!markerList.isNullOrEmpty()) {
                 for (i in markerList.indices) {
-                    marker = markerList.get(i)
+                    marker = markerList[i]
                     marker.isVisible = true
                 }
             }
@@ -115,22 +115,22 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         viewModel.setMap(mMap)
     }
 
-    fun setFilterLimits(filter: Int) {
+    private fun setFilterLimits(filter: Int) {
         val markerList: ArrayList<Marker>? = viewModel.getMarkerList()
         var marker: Marker
         var tpv = 0.0
         if (!markerList.isNullOrEmpty()) {
             for (i in markerList.indices) {
-                marker = markerList.get(i)
+                marker = markerList[i]
 
                 if (marker.tag != null) {
                     marker.isVisible = true
-                    if (marker.tag is Client) {
+                    tpv = if (marker.tag is Client) {
                         val obj: Client = marker.tag as Client
-                        tpv = obj.tpv
+                        obj.tpv
                     } else {
                         val obj: Lead = marker.tag as Lead
-                        tpv = obj.tpv
+                        obj.tpv
                     }
                 }
 
