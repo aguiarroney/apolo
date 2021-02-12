@@ -31,6 +31,10 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
 
     fun getMarkerList() = _markerList.value
 
+    fun initMarkerList() {
+        _markerList.value = ArrayList()
+    }
+
     fun fetchClients() {
         viewModelScope.launch {
             val response = repository.fetchClients()

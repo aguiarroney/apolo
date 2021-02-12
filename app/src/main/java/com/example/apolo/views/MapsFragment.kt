@@ -39,6 +39,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     ): View {
 
         binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
+        viewModel.initMarkerList()
         viewModel.fetchClients()
         viewModel.fetchLeads()
         viewModel.fetchPoloLimits()

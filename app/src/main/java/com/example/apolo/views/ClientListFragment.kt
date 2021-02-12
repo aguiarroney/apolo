@@ -29,7 +29,6 @@ class ClientListFragment : Fragment() {
 
         viewModel.clientsList.observe(viewLifecycleOwner, { response ->
             if (response.isSuccessful) {
-                Log.i("SUCCESS", "${response.body()}")
                 response.body()?.let {
                     binding.tvQntEcs.text = requireContext().getString(R.string.qnt_clients, it.size)
                     adapter.setData(it)
