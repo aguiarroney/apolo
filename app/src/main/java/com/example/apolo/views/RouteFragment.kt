@@ -12,11 +12,11 @@ import com.example.apolo.adapters.RouteListAdapter
 import com.example.apolo.databinding.FragmentRouteListBinding
 import com.example.apolo.viewmodels.GenericViewModel
 
-class RouteFragment: Fragment() {
+class RouteFragment : Fragment(), RouteListAdapter.onButtonClickListener {
 
     private val viewModel: GenericViewModel by activityViewModels()
-    private val myAdapter by lazy { RouteListAdapter() }
-    private lateinit var binding : FragmentRouteListBinding
+    private val myAdapter by lazy { RouteListAdapter(this) }
+    private lateinit var binding: FragmentRouteListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +33,10 @@ class RouteFragment: Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onButtonClick(position: Int) {
+        viewModel.route(position)
     }
 
 }

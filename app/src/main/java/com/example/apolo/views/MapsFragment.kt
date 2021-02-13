@@ -99,7 +99,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
         viewModel.polo.observe(viewLifecycleOwner, { response ->
 
             if (response.isSuccessful) {
-                response.body()?.let { viewModel.drawLimits(mMap, it) }
+                response.body()?.let { viewModel.drawLimits(it) }
             } else {
                 Log.i("ERRO", "${response.code()}")
             }

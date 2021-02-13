@@ -25,11 +25,25 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     private var _map: MutableLiveData<GoogleMap> = MutableLiveData()
     private var _markerList: MutableLiveData<ArrayList<Marker>> = MutableLiveData()
 
-    fun resetClientLiveData(){
+    private var _routeList: MutableLiveData<ArrayList<Marker>?> = MutableLiveData()
+    val routeList: LiveData<ArrayList<Marker>?> = _routeList
+
+    fun resetRouteList() {
+        _routeList.value = null
+    }
+
+    fun addRouteList(marker: Marker) {
+        if (_routeList.value.isNullOrEmpty())
+            _routeList.value = ArrayList<Marker>()
+
+        _routeList.value!!.add(marker)
+    }
+
+    fun resetClientLiveData() {
         _clientsList.value = null
     }
 
-    fun resetLeadLiveData(){
+    fun resetLeadLiveData() {
         _leadsList.value = null
     }
 
@@ -51,11 +65,10 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.fetchClients()
             if (response != null) {
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     Log.i("OBS CLIENTS API", "setou")
                     _clientsList.value = response
-                }
-                else {
+                } else {
                     Log.i("ERRO CLIENTS API", "${response.code()}")
                 }
             }
@@ -79,11 +92,10 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.fetchLeads()
             if (response != null) {
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     _leadsList.value = response
                     Log.i("OBS LEADAS API", "setou")
-                }
-                else {
+                } else {
                     Log.i("ERRO LEADS API", "${response.code()}")
                 }
             }
@@ -131,6 +143,9 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
                 )
             )
             marker.tag = mList[i]
+            if (!_routeList.value.isNullOrEmpty()) {
+                setRouteItem(marker)
+            }
             addMarkerToList(marker)
         }
         if (mList.isNotEmpty()) {
@@ -158,6 +173,9 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
                 )
             )
             marker.tag = mList[i]
+            if (!_routeList.value.isNullOrEmpty()) {
+                setRouteItem(marker)
+            }
             addMarkerToList(marker)
         }
         if (mList.isNotEmpty()) {
@@ -172,8 +190,16 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    private fun setRouteItem(marker: Marker) {
+        for (j in _routeList.value!!.indices) {
+            if (_routeList.value!![j].tag == marker.tag) {
+                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+            }
+        }
+    }
+
     // função responsavel por desenhar os limites do polo no mapa
-    fun drawLimits(mMap: GoogleMap, limits: List<Polo>) {
+    fun drawLimits(limits: List<Polo>) {
 
         val latLngList = mutableListOf<LatLng>()
 
@@ -197,7 +223,7 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
 
     fun getMarker() = _marker.value
 
-    fun converPin(client: Client) {
+    fun convertPin(client: Client) {
         _marker.value!!.remove()
         val marker = _map.value!!.addMarker(
             MarkerOptions().position(LatLng(client.lat, client.lng)).title("Cliente ${client.name}")
@@ -212,5 +238,13 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
 
     fun setMap(map: GoogleMap) {
         _map.value = map
+    }
+
+    fun route(position: Int) {
+
+        val markerList = _markerList
+        val marker = markerList.value?.get(position)
+        Log.i("CLIQUE", "${marker?.tag}")
+        addRouteList(marker!!)
     }
 }
