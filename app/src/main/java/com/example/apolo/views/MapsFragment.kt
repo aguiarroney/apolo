@@ -39,6 +39,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
     ): View {
 
         binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
+
         viewModel.initMarkerList()
         viewModel.fetchClients()
         viewModel.fetchLeads()
@@ -81,14 +82,17 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
 
         }
 
-        viewModel.clientsList.observe(viewLifecycleOwner, { response ->
-
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    viewModel.setClientPins(it)
+        viewModel.clientList.observe(viewLifecycleOwner, { response ->
+            response?.let {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        Log.i("OBSERVER CLIENT", "observer")
+                        viewModel.setClientPins(it)
+                        viewModel.resetClientLiveData()
+                    }
+                } else {
+                    Log.i("ERRO", "${response.code()}")
                 }
-            } else {
-                Log.i("ERRO", "${response.code()}")
             }
         })
 
@@ -101,13 +105,17 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickList
             }
         })
 
-        viewModel.leadsList.observe(viewLifecycleOwner, { response ->
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    viewModel.setLeadPins(it)
+        viewModel.leadList.observe(viewLifecycleOwner, { response ->
+            response?.let {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        Log.i("OBSERVER lead", "observer")
+                        viewModel.setLeadPins(it)
+                        viewModel.resetLeadLiveData()
+                    }
+                } else {
+                    Log.i("ERRO", "${response.code()}")
                 }
-            } else {
-                Log.i("ERRO", "${response.code()}")
             }
         })
 

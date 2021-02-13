@@ -14,12 +14,24 @@ import retrofit2.Response
 
 class GenericViewModel(private val repository: Repository) : ViewModel() {
 
-    var clientsList: MutableLiveData<Response<List<Client>>> = MutableLiveData()
+    private var _clientsList: MutableLiveData<Response<List<Client>>?> = MutableLiveData()
+    val clientList: LiveData<Response<List<Client>>?> = _clientsList
+
+    private var _leadsList: MutableLiveData<Response<List<Lead>>?> = MutableLiveData()
+    val leadList: LiveData<Response<List<Lead>>?> = _leadsList
+
     var polo: MutableLiveData<Response<List<Polo>>> = MutableLiveData()
-    var leadsList: MutableLiveData<Response<List<Lead>>> = MutableLiveData()
     private var _marker: MutableLiveData<Marker> = MutableLiveData()
     private var _map: MutableLiveData<GoogleMap> = MutableLiveData()
     private var _markerList: MutableLiveData<ArrayList<Marker>> = MutableLiveData()
+
+    fun resetClientLiveData(){
+        _clientsList.value = null
+    }
+
+    fun resetLeadLiveData(){
+        _leadsList.value = null
+    }
 
     fun addMarkerToList(marker: Marker) {
 
@@ -39,8 +51,10 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.fetchClients()
             if (response != null) {
-                if (response.isSuccessful)
-                    clientsList.value = response
+                if (response.isSuccessful){
+                    Log.i("OBS CLIENTS API", "setou")
+                    _clientsList.value = response
+                }
                 else {
                     Log.i("ERRO CLIENTS API", "${response.code()}")
                 }
@@ -65,8 +79,10 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.fetchLeads()
             if (response != null) {
-                if (response.isSuccessful)
-                    leadsList.value = response
+                if (response.isSuccessful){
+                    _leadsList.value = response
+                    Log.i("OBS LEADAS API", "setou")
+                }
                 else {
                     Log.i("ERRO LEADS API", "${response.code()}")
                 }

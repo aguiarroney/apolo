@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.apolo.R
 import com.example.apolo.databinding.FragmentDetailBinding
 import com.example.apolo.models.Client
 import com.example.apolo.models.Lead
+import com.example.apolo.repository.Repository
 import com.example.apolo.viewmodels.GenericViewModel
+import com.example.apolo.viewmodels.GenericViewModelFactory
 
 class DetailFragment : Fragment() {
 
