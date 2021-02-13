@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="80dp"
     app:cardCornerRadius="@dimen/card_border_radius"
     app:cardElevation="@dimen/card_elevation"
     app:cardUseCompatPadding="true">
@@ -29,10 +29,14 @@
 
         <Button
             android:id="@+id/btn_add_to_route"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ROTA"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="@dimen/margin_five"
+            android:text="+"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:background="@drawable/custom_circular_button"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

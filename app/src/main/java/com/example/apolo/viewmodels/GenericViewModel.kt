@@ -240,11 +240,26 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         _map.value = map
     }
 
+    // funções para manipular rotas
+
     fun route(position: Int) {
 
         val markerList = _markerList
         val marker = markerList.value?.get(position)
-        Log.i("CLIQUE", "${marker?.tag}")
         addRouteList(marker!!)
+    }
+
+    fun clearRoute(){
+        resetRouteList()
+        for (i in _markerList.value!!.indices){
+            when(_markerList.value!![i].tag){
+                is Client ->{
+                    _markerList.value!![i].setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                }
+                else -> {
+                    _markerList.value!![i].setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                }
+            }
+        }
     }
 }

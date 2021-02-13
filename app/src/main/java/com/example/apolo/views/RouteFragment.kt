@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.apolo.R
 import com.example.apolo.adapters.ClientsListAdapter
 import com.example.apolo.adapters.RouteListAdapter
 import com.example.apolo.databinding.FragmentRouteListBinding
@@ -28,8 +29,12 @@ class RouteFragment : Fragment(), RouteListAdapter.onButtonClickListener {
         binding.rvRouteItems.adapter = myAdapter
 
         viewModel.getMarkerList()?.let {
-            binding.tvRoutesInfo.text = "Items: ${it.size}"
+            binding.tvRoutesInfo.text = getString(R.string.selecione_pontos_para_rota, it.size)
             myAdapter.setData(it)
+        }
+
+        binding.btnClearRoute.setOnClickListener {
+            viewModel.clearRoute()
         }
 
         return binding.root
