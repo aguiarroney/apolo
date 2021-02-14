@@ -50,3 +50,11 @@ Aqui é possível ver o nome do lead, endereço, data da próxima visita, status
 Além disso, é possivel enviar uma proposta para o lead, caso a mesma não tenha sido enviada. Se houver uma proposta enviada, o lead terá um indicador do envio.
 
 ![](/files/leads.jpeg)
+
+### Tela de Rota
+
+Na tela de rota, é possível visualizar todos os clientes e leads da região e adicionar cada um deles à rota do agente. 
+Ao adicionar um item à rota, o pin no mapa se torna laranja, destacando os clientes ou leads na rota do agente.
+Na tela de rota é possivel também limpar a rota através do icone no canto superior direito.
+
+![](/files/rota_items.jpeg) ![](/files/rota_pin.jpeg)

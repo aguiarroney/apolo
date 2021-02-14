@@ -29,5 +29,14 @@
         android:id="@+id/leadsFragment"
         android:name="com.example.apolo.views.LeadListFragment"
         android:label="fragment_lead_list"
-        tools:layout="@layout/fragment_lead_list" />
+        tools:layout="@layout/fragment_lead_list" >
+        <action
+            android:id="@+id/action_leadsFragment_to_routeFragment2"
+            app:destination="@id/routeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/routeFragment"
+        android:name="com.example.apolo.views.RouteFragment"
+        android:label="RouteFragment" />
 </navigation>

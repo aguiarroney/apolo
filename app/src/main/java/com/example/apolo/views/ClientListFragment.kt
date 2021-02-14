@@ -5,15 +5,16 @@ import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.apolo.R
 import com.example.apolo.adapters.ClientsListAdapter
 import com.example.apolo.databinding.FragmentClientListBinding
-import com.example.apolo.viewmodels.GenericViewModel
+import com.example.apolo.repository.Repository
+import com.example.apolo.viewmodels.ClientViewModel
+import com.example.apolo.viewmodels.ClientViewModelFactory
 
 class ClientListFragment : Fragment() {
 
-    private val viewModel: GenericViewModel by activityViewModels()
     private val adapter by lazy { ClientsListAdapter() }
     private lateinit var binding: FragmentClientListBinding
 
@@ -25,11 +26,14 @@ class ClientListFragment : Fragment() {
         binding = FragmentClientListBinding.inflate(layoutInflater, container, false)
         binding.list.adapter = adapter
 
+        val repository = Repository()
+        val factory = ClientViewModelFactory(repository)
+        val viewModel = ViewModelProvider(this, factory).get(ClientViewModel::class.java)
+
         viewModel.fetchClients()
 
         viewModel.clientsList.observe(viewLifecycleOwner, { response ->
             if (response.isSuccessful) {
-                Log.i("SUCCESS", "${response.body()}")
                 response.body()?.let {
                     binding.tvQntEcs.text = requireContext().getString(R.string.qnt_clients, it.size)
                     adapter.setData(it)
@@ -38,6 +42,7 @@ class ClientListFragment : Fragment() {
                 Log.i("FAIL", "${response.body()}")
             }
         })
+
         setHasOptionsMenu(true)
         return binding.root
     }

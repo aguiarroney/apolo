@@ -23,7 +23,7 @@ class ClientsListAdapter : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>()
         var itemNexVisit: TextView = itemView.findViewById(R.id.tv_next_visit_text)
         var itemLastVisit: TextView = itemView.findViewById(R.id.tv_last_visit_text)
         var itemtpv: TextView = itemView.findViewById(R.id.tv_tpv_text)
-        var itemSatsfaction: TextView = itemView.findViewById(R.id.tv_client_satsfaction)
+        var itemSatisfaction: TextView = itemView.findViewById(R.id.tv_client_satsfaction)
     }
 
     private var _myClientsList = ArrayList<Client>()
@@ -47,7 +47,7 @@ class ClientsListAdapter : RecyclerView.Adapter<ClientsListAdapter.ViewHolder>()
         holder.itemLastVisit.text = holder.itemView.context.getString(R.string.dias, setLastVisit(_myClientsList[position].lastVisit).toString())
 
         holder.itemtpv.text = _myClientsList[position].tpv.toString()
-        holder.itemSatsfaction.text = _myClientsList[position].satisfaction
+        holder.itemSatisfaction.text = _myClientsList[position].satisfaction
     }
 
     fun setData(newList: List<Client>) {

@@ -34,7 +34,7 @@ class DetailFragment : Fragment() {
                     is Lead ->{
                         val lead: Lead = marker.tag as Lead
                         val client = Client(lead.id, lead.name, lead.address, lead.tpv, "", "", lead.nextVisit, lead.lat, lead.lng, "Satisfeito")
-                        viewModel.converPin(client)
+                        viewModel.convertPin(client)
                     }
                 }
             }
