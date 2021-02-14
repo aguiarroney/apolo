@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.apolo.R
 import com.example.apolo.adapters.LeadsListAdapter
 import com.example.apolo.databinding.FragmentLeadListBinding
 import com.example.apolo.repository.Repository
-import com.example.apolo.viewmodels.*
+import com.example.apolo.viewmodels.LeadViewModel
+import com.example.apolo.viewmodels.LeadViewModelFactory
 
 class LeadListFragment : Fragment() {
 

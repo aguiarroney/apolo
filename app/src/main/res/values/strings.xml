@@ -25,4 +25,9 @@
     <string name="visitas">Visitas: %1$s</string>
     <string name="dias">Há %1$s</string>
     <string name="selecione_pontos_para_rota">Adicione pins %1$d</string>
+    <string name="btn_add_name">+</string>
+    <string name="item_rotas">Rotas</string>
+    <string name="item_limpar">Limpar</string>
+    <string name="lead_title">Lead %1$s</string>
+    <string name="cliente_title">Cliente %1$s</string>
 </resources>

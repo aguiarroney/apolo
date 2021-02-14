@@ -26,15 +26,14 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
     private var _markerList: MutableLiveData<ArrayList<Marker>> = MutableLiveData()
 
     private var _routeList: MutableLiveData<ArrayList<Marker>?> = MutableLiveData()
-    val routeList: LiveData<ArrayList<Marker>?> = _routeList
 
-    fun resetRouteList() {
+    private fun resetRouteList() {
         _routeList.value = null
     }
 
-    fun addRouteList(marker: Marker) {
+    private fun addRouteList(marker: Marker) {
         if (_routeList.value.isNullOrEmpty())
-            _routeList.value = ArrayList<Marker>()
+            _routeList.value = ArrayList()
 
         _routeList.value!!.add(marker)
     }

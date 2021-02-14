@@ -5,16 +5,13 @@ import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.example.apolo.R
 import com.example.apolo.adapters.ClientsListAdapter
 import com.example.apolo.databinding.FragmentClientListBinding
 import com.example.apolo.repository.Repository
 import com.example.apolo.viewmodels.ClientViewModel
 import com.example.apolo.viewmodels.ClientViewModelFactory
-import com.example.apolo.viewmodels.GenericViewModel
 
 class ClientListFragment : Fragment() {
 

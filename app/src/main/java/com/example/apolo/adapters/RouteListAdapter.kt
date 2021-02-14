@@ -1,28 +1,26 @@
 package com.example.apolo.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apolo.R
-import com.example.apolo.R.*
+import com.example.apolo.R.id
+import com.example.apolo.R.layout
 import com.example.apolo.models.Client
 import com.example.apolo.models.Lead
-import com.google.android.gms.common.api.Api
 import com.google.android.gms.maps.model.Marker
 
-class RouteListAdapter(private val listener: onButtonClickListener) :
+class RouteListAdapter(private val listener: OnButtonClickListener) :
     RecyclerView.Adapter<RouteListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        var itemName: TextView = itemView.findViewById(R.id.tv_route_item_title)
-        var itemAddress: TextView = itemView.findViewById(R.id.tv_route_item_address)
-        var itemBtn: Button = itemView.findViewById(R.id.btn_add_to_route)
+        var itemName: TextView = itemView.findViewById(id.tv_route_item_title)
+        var itemAddress: TextView = itemView.findViewById(id.tv_route_item_address)
+        private var itemBtn: Button = itemView.findViewById(id.btn_add_to_route)
 
         init {
             itemBtn.setOnClickListener(this)
@@ -48,13 +46,13 @@ class RouteListAdapter(private val listener: onButtonClickListener) :
         when (_myRouteItems[position].tag) {
             is Client -> {
                 val obj: Client = _myRouteItems[position].tag as Client
-                holder.itemName.text = "Cliente ${obj.name}"
-                holder.itemAddress.text = "${obj.address}"
+                holder.itemName.text = holder.itemView.context.getString(R.string.cliente_title, obj.name)
+                holder.itemAddress.text = obj.address
             }
             else -> {
                 val obj: Lead = _myRouteItems[position].tag as Lead
-                holder.itemName.text = "Lead ${obj.name}"
-                holder.itemAddress.text = "${obj.address}"
+                holder.itemName.text = holder.itemView.context.getString(R.string.lead_title, obj.name)
+                holder.itemAddress.text = obj.address
             }
         }
     }
@@ -66,7 +64,7 @@ class RouteListAdapter(private val listener: onButtonClickListener) :
         notifyDataSetChanged()
     }
 
-    interface onButtonClickListener {
+    interface OnButtonClickListener {
         fun onButtonClick(position: Int)
     }
 }
