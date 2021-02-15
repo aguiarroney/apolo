@@ -248,15 +248,25 @@ class GenericViewModel(private val repository: Repository) : ViewModel() {
         addRouteList(marker!!)
     }
 
-    fun clearRoute(){
+    fun clearRoute() {
         resetRouteList()
-        for (i in _markerList.value!!.indices){
-            when(_markerList.value!![i].tag){
-                is Client ->{
-                    _markerList.value!![i].setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                }
-                else -> {
-                    _markerList.value!![i].setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+        for (i in _markerList.value!!.indices) {
+            if (_markerList.value!![i].tag != null) {
+                when (_markerList.value!![i].tag) {
+                    is Client -> {
+                        _markerList.value!![i].setIcon(
+                            BitmapDescriptorFactory.defaultMarker(
+                                BitmapDescriptorFactory.HUE_BLUE
+                            )
+                        )
+                    }
+                    else -> {
+                        _markerList.value!![i].setIcon(
+                            BitmapDescriptorFactory.defaultMarker(
+                                BitmapDescriptorFactory.HUE_GREEN
+                            )
+                        )
+                    }
                 }
             }
         }
