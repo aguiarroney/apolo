@@ -43,16 +43,20 @@ class RouteListAdapter(private val listener: OnButtonClickListener) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        when (_myRouteItems[position].tag) {
-            is Client -> {
-                val obj: Client = _myRouteItems[position].tag as Client
-                holder.itemName.text = holder.itemView.context.getString(R.string.cliente_title, obj.name)
-                holder.itemAddress.text = obj.address
-            }
-            else -> {
-                val obj: Lead = _myRouteItems[position].tag as Lead
-                holder.itemName.text = holder.itemView.context.getString(R.string.lead_title, obj.name)
-                holder.itemAddress.text = obj.address
+        if (_myRouteItems[position].tag != null) {
+            when (_myRouteItems[position].tag) {
+                is Client -> {
+                    val obj: Client = _myRouteItems[position].tag as Client
+                    holder.itemName.text =
+                        holder.itemView.context.getString(R.string.cliente_title, obj.name)
+                    holder.itemAddress.text = obj.address
+                }
+                else -> {
+                    val obj: Lead = _myRouteItems[position].tag as Lead
+                    holder.itemName.text =
+                        holder.itemView.context.getString(R.string.lead_title, obj.name)
+                    holder.itemAddress.text = obj.address
+                }
             }
         }
     }
